@@ -3,20 +3,19 @@
 
     Class Posts extends Database {
 
-        public function createPost($id, $post, $file) {
+        public function createPost($id, $data) {
 
             //$is_image = 0;
 
             $query = $this->db->prepare("
                     INSERT INTO posts
-                    (user_id, post, image)
-                    VALUES(?, ?, ?)
+                    (user_id, post)
+                    VALUES(?, ?)
             ");
         
             $query->execute([
                 $id,
-                $post,
-                $file
+                $data["post"]
                 //$is_image["is_image"]
             ]);
                 
@@ -33,18 +32,20 @@
 
  
 
-        public function getPosts() {
+        public function getPosts($user_id) {
             
             $query = $this->db->prepare("
-                SELECT post_id, post, image 
+                SELECT post_id, user_id, post 
                 FROM posts
-                ORDER BY post_id DESC
+                WHERE user_id = ?
+                ORDER BY post_id DESC limit 10
             ");
 
-            $query->execute();
+            $query->execute([ $user_id ]);
 
-            return $query->fetchAll();
+            $result = $query->fetchAll();
 
+            return $result;
            
         }
 

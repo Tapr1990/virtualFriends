@@ -2,11 +2,21 @@
     
    require("models/model.users.php");
    require("models/model.posts.php");
+
+
+
+   if(is_numeric($_SESSION["user_id"])){
+
+         $user_id = $_SESSION["user_id"];
+
+    }
   
    
    $modelUsers = new Users();
+
+
    
-   $user = $modelUsers->getUser($_SESSION["user_id"]);
+   $user = $modelUsers->getUser($user_id);
 
 
    //$user_id = $_SESSION["user_id"];
@@ -16,14 +26,15 @@
 
     
 
-    if(isset($_POST["send"]) || isset($_FILES["file"])) {
+    if(isset($_POST["send"])) {
        
         //var_dump($_FILES);
-        print_r($_POST);
+        //print_r($_POST);
 
             if(
-                !empty($_FILES["file"]["name"]) ||
+                //!empty($_FILES["file"]["name"]) ||
                 !empty($_POST["post"]) &&
+                is_numeric($_SESSION["user_id"]) &&
                 mb_strlen($_POST["post"]) >= 10 &&
                 mb_strlen($_POST["post"]) <= 200 
               
@@ -33,8 +44,8 @@
                 
                 $user = $_SESSION["user_id"];
 
-                $result = $modelPosts->createPost($user, $_POST, $_FILES);
-                print_r($result);
+                $result = $modelPosts->createPost($user, $_POST);
+                //print_r($result);
 
                 header("Location: /profile");
             }
@@ -51,7 +62,7 @@
 
     
 
-    $posts = $modelPosts->getPosts();
+    $posts = $modelPosts->getPosts($user_id);
     //var_dump($posts);
 
                                 
@@ -69,7 +80,7 @@
     }
 
 
-    $user_id = $_SESSION["user_id"];
+    
 
     $friends = $modelUsers->getFriends($user_id);
 

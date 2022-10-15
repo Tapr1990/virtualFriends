@@ -52,6 +52,24 @@
             return $query->fetch();
         }
 
+       /* public function checkUser($user_id) {
+            $query = $this->db->prepare("
+                SELECT 
+                    user_id, 
+                    first_name,
+                    last_name,       
+                FROM 
+                    users
+                WHERE
+                    user_id = ?
+            ");
+
+            $query->execute([ $user_id ]);
+
+            return $query->fetch();
+
+        }*/
+
        
 
         

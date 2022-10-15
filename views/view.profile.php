@@ -147,19 +147,23 @@
                     </form>
 
                 </div>
-
 <?php
     foreach($posts as $post) {
+
+        $post_user = $modelUsers->getUser($post["user_id"]);
+    
 ?>
+    
+
                 <div id="post_bar">
-                    <div id="post">
+                    <div <?php $post["post_id"]; ?> id="post">
                         <div>
                       
                             <img src="<?php echo $user["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
                         </div>
                         <div>
                             <div style="font-weight:bold;color:#405d9b;">
-                                <?php echo $user["first_name"] . " " . $user["last_name"]; ?>
+                                <?php echo $post_user["first_name"] . " " . $post_user["last_name"]; ?>
                             </div>
                             <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
