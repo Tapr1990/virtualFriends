@@ -56,12 +56,10 @@
 
     $posts = $modelPosts->getPosts($user_id);
 
-
+    //* editar posts
     if(isset($_POST["edit"])) {
        
-        //var_dump($_FILES);
-        //print_r($_POST);
-        //var_dump($_POST["postid"]);
+      
             if(
                
                 !empty($_POST["update"]) &&
@@ -92,6 +90,39 @@
     }
 
 
+    //* eliminar posts
+    if(isset($_POST["delete"])) {
+       
+       
+            if(
+               
+               
+                !empty($_POST["postid"]) &&
+                is_numeric($_POST["postid"]) 
+              
+            ) { 
+        
+                $postid = $_POST["postid"];
+               
+                
+                
+
+                $update = $modelPosts->deletePost($postid);
+               
+
+                header("Location: /profile");
+                
+            }
+            else {
+                $message = "";
+            }
+    }
+              
+                
+              
+               
+
+
  
 
 
@@ -99,19 +130,7 @@
     
 
 
-    if(
-        $_SERVER["REQUEST_METHOD"] === "POST" && 
-        !empty($post_id) && 
-        is_numeric($post_id) &&
-        isset($_POST["likes"]) &&
-        intval($_POST["likes"]) > 0 
-        
 
-    ) {
-        var_dump($_POST);
-
-    
-    }
     //$likes = $model->getLikes($post_id, $user_id);
 
 

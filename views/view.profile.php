@@ -245,8 +245,13 @@
                             
                             <div stye="color: #999;float:left;">
                                
+                                <form method="post" action="/profile">
                                     
-                                <button class="remove-button" type="button">Delete</button>  
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <input id="post_button" type="submit" value="Delete" name="delete">
+                                    <br>
+                                </form>    
+                                
                                     
                                 
                             </div>
