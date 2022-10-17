@@ -30,6 +30,50 @@
             
         }
 
+        public function likePost($data, $user_id, $post_id) {
+
+            //$is_image = 0;
+            
+
+            $query = $this->db->prepare("
+                UPDATE posts
+                SET likes = ?
+                WHERE post_id = ? AND user_id = ?
+            ");
+        
+            $query->execute([
+                $data["likes"],
+                $post_id,
+                $user_id
+                
+                //$is_image["is_image"]
+            ]);
+                
+            return $query;
+    
+            
+        }
+
+        public function getLikes($post_id) {
+
+     
+
+            $query = $this->db->prepare("
+                SELECT likes
+                FROM posts
+                WHERE post_id = ? 
+            ");
+        
+            $query->execute([
+                $post_id,
+                
+            ]);
+            
+            $result = $query->fetchAll();
+
+            return $result;
+        }
+
  
 
         public function getPosts($user_id) {
@@ -49,7 +93,65 @@
            
         }
 
-       
+        public function getIdPost($post_id) {
+            $query = $this->db->prepare("
+                SELECT post_id, post 
+                FROM posts
+                WHERE post_id = ?
+              
+            ");
+
+            $query->execute([ $post_id ]);
+
+            $result = $query->fetch();
+
+            return $result;
+            
+        }
+
+        
+    
+
+        public function deletePost($post_id) {
+            $query = $this->db->prepare("
+                DELETE FROM posts
+                WHERE post_id = ?
+            ");
+
+            $query->execute([ $post_id ]);
+            
+            
+            return $query;
+
+
+
+        }
+
+        public function editPost($post, $post_id) {
+
+            //$is_image = 0;
+            
+
+            $query = $this->db->prepare("
+                UPDATE posts
+                SET post = ?
+                WHERE post_id = ?
+            ");
+        
+            $query->execute([
+                $post,
+                $post_id
+                
+                
+                //$is_image["is_image"]
+            ]);
+                
+            return $query;
+    
+            
+        }
+
+      
     }
 
 ?>

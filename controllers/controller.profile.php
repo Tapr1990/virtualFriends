@@ -37,14 +37,51 @@
                 is_numeric($_SESSION["user_id"]) &&
                 mb_strlen($_POST["post"]) >= 10 &&
                 mb_strlen($_POST["post"]) <= 200 
-              
+                
               
             ) { 
 
                 
                 $user = $_SESSION["user_id"];
 
-                $result = $modelPosts->createPost($user, $_POST);
+                $post_id = $modelPosts->createPost($user, $_POST);
+                //print_r($result);
+
+                header("Location: /profile");
+            }
+            else {
+                $message = "";
+            }
+    }
+
+    $posts = $modelPosts->getPosts($user_id);
+
+
+    if(isset($_POST["edit"])) {
+       
+        //var_dump($_FILES);
+        //print_r($_POST);
+        //var_dump($_POST["postid"]);
+            if(
+               
+                !empty($_POST["update"]) &&
+                !empty($_POST["postid"]) &&
+                is_numeric($_POST["postid"]) &&
+                mb_strlen($_POST["update"]) >= 1 &&
+                mb_strlen($_POST["update"]) <= 200 
+        
+              
+                
+              
+            ) { 
+               
+                $post = $_POST["update"];
+                $postid = $_POST["postid"];
+               
+                
+                //$user = $_SESSION["user_id"];
+
+                $update = $modelPosts->editPost($post, $postid);
                 //print_r($result);
 
                 header("Location: /profile");
@@ -55,15 +92,28 @@
     }
 
 
-
  
 
 
 
     
 
-    $posts = $modelPosts->getPosts($user_id);
-    //var_dump($posts);
+
+    if(
+        $_SERVER["REQUEST_METHOD"] === "POST" && 
+        !empty($post_id) && 
+        is_numeric($post_id) &&
+        isset($_POST["likes"]) &&
+        intval($_POST["likes"]) > 0 
+        
+
+    ) {
+        var_dump($_POST);
+
+    
+    }
+    //$likes = $model->getLikes($post_id, $user_id);
+
 
                                 
     $imageFriends= "";

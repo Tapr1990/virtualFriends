@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
+  
     <style type="text/css">
         #blue_bar {
             height:50px;
@@ -73,6 +74,65 @@
         }
 
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () =>{
+            const removeButtons = document.querySelectorAll(".remove-button");
+            const likeButtons = document.querySelectorAll(".like-button");
+            const count = document.querySelectorAll(".count");
+            const root = document.querySelector("body");
+    
+            likeButtons.forEach(button => {
+                
+                //console.log(post_id);
+                let click = 0;
+                button.addEventListener("click", () => {
+                    const post = button.parentNode.parentNode.parentNode.parentNode;
+                    const post_id = post.dataset.post_id;
+                    //console.log("funca");
+
+                    fetch(root + "/like/" + post_id, {
+                        "method":"POST",
+                        "headers": {
+                            "Content-Type":"application/x-www-form-urlencoded"
+                        },
+                        "body":"likes="+ click++
+
+                    })
+                    .then(response => response.json())
+                    .then(result =>  {
+                        console.log(result);
+                    })
+                    .catch(err => alert("erro"));
+                    
+                });
+            });
+
+            removeButtons.forEach(button => {
+                //console.log(button);
+                button.addEventListener("click", () => {
+                    const post = button.parentNode.parentNode.parentNode.parentNode;
+                    //console.log("funca");
+                    const post_id = post.dataset.post_id;
+                    //console.log(product_id);
+
+                    fetch(root + "/delete/" + post_id, {
+                        "method":"POST",
+                        "headers": {
+                            "Content-Type":"application/x-www-form-urlencoded"
+                        }
+
+                    })
+                    .then(response => response.json())
+                    .then(result =>  {
+                        post.remove();
+                    })
+                    .catch(err => console.log(err));
+                });
+
+            });
+        });
+
+    </script>
 </head>
 <body style="font-family:tahoma;background-color:#d0d8e4;" >
     <br>    
@@ -148,15 +208,20 @@
 
                 </div>
 <?php
+    
     foreach($posts as $post) {
 
         $post_user = $modelUsers->getUser($post["user_id"]);
+
+        $post_id = $post["post_id"];
+
+      
     
 ?>
     
 
-                <div id="post_bar">
-                    <div <?php $post["post_id"]; ?> id="post">
+                <div data-post_id="<?php echo $post_id; ?>" id="post_bar">
+                    <div id="post">
                         <div>
                       
                             <img src="<?php echo $user["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
@@ -167,14 +232,57 @@
                             </div>
                             <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
-                            <a href="#">Like</a> . <a href="#">Comment</a> . <span style="color:#999"><?php echo $post["date"]; ?></span>
+                            <div>
+                                
+                                    
+                                <button class ="like-button" type="button">
+                                    <span>Like</span>
+                                    <span>0</span>
+                                </button>
+                                
+                            </div>
+
+                            
+                            <div stye="color: #999;float:left;">
+                               
+                                    
+                                <button class="remove-button" type="button">Delete</button>  
+                                    
+                                
+                            </div>
+                            <div>
+                            <div style="border:solid thin #aaa;padding: 10px;background-color:white">
+                                
+                                <form method="post" action="/profile">
+                                    <input type="text" name="update" placeholder="edit post">
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <input id="post_button" type="submit" value="Edit" name="edit">
+                                    <br>
+                                </form>
+
+                            </div>
+                            </div>
                         </div>
                     </div>
+       
                 </div>
+                <div>
+                        <form method="post" action="/profile">
+                          
+                          <div>
+            
+                              <textarea value="<?php echo $post["post_id"]; ?>" style="border:1px solid #405d9b;" name="comment" required placeholder="commet this post"></textarea>
+                          </div>
+                          <div>
+                              <button type="submit" name="send">Send</button>
+                          </div>
+                         
+              
+                        </form>
+                </div>                              
 <?php
     }
 ?>
-                                
                             
                  
                
@@ -186,3 +294,7 @@
 
 </body>
 </html>
+<?php
+//<input type="hidden" name="like" value="<?php echo $post_id; " aria-label="like">
+
+?>
