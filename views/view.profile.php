@@ -268,12 +268,12 @@
                 <div>
                         <form method="post" action="/profile">
                           
-                          <div>
+                            <div>
+                                <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
+                                <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                <input type="submit" name="sendcomment" value="send">
+                            </div>
             
-                              <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
-                              <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                              <input type="submit" name="sendcomment" value="send">
-                          </div>
                         </form>
                       
                         <div>

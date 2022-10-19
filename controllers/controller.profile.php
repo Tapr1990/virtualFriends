@@ -141,12 +141,11 @@
 
             $user_id = $_SESSION["user_id"];
             
-            //$post_id = $_POST["postid"];
+            $post_id = $_POST["postid"];
             
-            //$comment = $_POST["comment"];
-            
+            $comment = $_POST["comment"];
 
-            $result = $modelComments->createComment($_POST, $user_id);
+            $result = $modelComments->createComment($post_id, $user_id, $comment);
             //var_dump($result);
 
             header("Location: /profile");

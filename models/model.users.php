@@ -154,6 +154,31 @@
             return $query;
         }
 
+        public function updateUsers($data) {
+            $query = $this->db->prepare("
+                UPDATE 
+                    users
+                SET
+                    first_name = ?,
+                    last_name = ?,
+                    email = ?,
+                    password = ?
+                WHERE 
+                    user_id = ? 
+            ");
+
+            $query->execute([
+                htmlspecialchars(strip_tags(trim($data["first_name"]))),
+                htmlspecialchars(strip_tags(trim($data["last_name"]))),
+                htmlspecialchars(strip_tags(trim($data["email"]))),
+                password_hash($data["password"],PASSWORD_DEFAULT)
+            
+
+            ]);
+
+            return $query;
+        }
+
 
       
     }
