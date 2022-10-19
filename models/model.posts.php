@@ -53,7 +53,7 @@
             
         }
 
-        public function getLikes($post_id) {
+        /*public function getLikes($post_id) {
 
      
 
@@ -71,89 +71,96 @@
             $result = $query->fetchAll();
 
             return $result;
-        }
+        }*/
 
-        public function getAllPosts($userid, $data) {
+        public function getAllPosts() {
             $query = $this->db->prepare("
-                SELECT post
-                FROM posts
-                WHERE user_id = ? in(?) limit 30 
+                SELECT
+                    posts.post_id,
+                    posts.post, 
+                    users.profile_image,
+                    users.first_name,
+                    users.last_name 
+                FROM 
+                    posts
+                INNER JOIN
+                    users USING(user_id)
             ");
+            
 
-            $query->execute([
-                $userid,
-                $data
-            ]);
-
+                
+                
+            $query->execute();
+            
             $posts = $query->fetchAll();
-
+            
             return $posts;
         }
 
- 
-
+        
+        
         public function getPosts($user_id) {
             
             $query = $this->db->prepare("
-                SELECT post_id, user_id, post 
-                FROM posts
-                WHERE user_id = ?
-                ORDER BY post_id DESC limit 10
+            SELECT post_id, user_id, post 
+            FROM posts
+            WHERE user_id = ?
+            ORDER BY post_id DESC limit 10
             ");
-
+            
             $query->execute([ $user_id ]);
-
+            
             $result = $query->fetchAll();
-
-            return $result;
-           
-        }
-
-        public function getIdPost($post_id) {
-            $query = $this->db->prepare("
-                SELECT post_id, post 
-                FROM posts
-                WHERE post_id = ?
-              
-            ");
-
-            $query->execute([ $post_id ]);
-
-            $result = $query->fetch();
-
+            
             return $result;
             
         }
-
         
-    
-
+        public function getIdPost($post_id) {
+            $query = $this->db->prepare("
+            SELECT post_id, post 
+            FROM posts
+            WHERE post_id = ?
+            
+            ");
+            
+            $query->execute([ $post_id ]);
+            
+            $result = $query->fetch();
+            
+            return $result;
+            
+        }
+        
+        
+        
+        
         public function deletePost($post_id) {
             $query = $this->db->prepare("
-                DELETE FROM posts
-                WHERE post_id = ?
+            DELETE FROM posts
+            WHERE post_id = ?
             ");
-
+            
             $query->execute([ $post_id ]);
             
             
             return $query;
-
-
-
+            
+            
+            
         }
-
+        
         public function editPost($post, $post_id) {
-
+            
             //$is_image = 0;
             
-
+            
             $query = $this->db->prepare("
-                UPDATE posts
-                SET post = ?
-                WHERE post_id = ?
+            UPDATE posts
+            SET post = ?
+            WHERE post_id = ?
             ");
-        
+            
             $query->execute([
                 $post,
                 $post_id
@@ -161,12 +168,13 @@
                 
                 //$is_image["is_image"]
             ]);
-                
+            
             return $query;
-    
+            
             
         }
-     
+        
     }
-
+    
+    //WHERE user_id = ? in(?) limit 30 
 ?>

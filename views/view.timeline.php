@@ -114,28 +114,30 @@
 
                 <!--posts-->
                 <div id="post_bar">
-                <?php
-    
+<?php
+  
     foreach($posts as $post) {
 
-        $post_user = $modelUsers->getUser($post["user_id"]);
+        //$post_user = $modelUsers->getUser($post["user_id"]);
+        //$profile_image = $modelUsers->getUser($post["profile_image"]);
 
-        $post_id = $post["post_id"];
+        //$post_id = $post["post_id"];
 
+        
       
     
 ?>
     
 
-                <div data-post_id="<?php echo $post_id; ?>" id="post_bar">
+                <div data-post_id="" id="post_bar">
                     <div id="post">
                         <div>
                       
-                            <img src="<?php echo $user["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
+                            <img src="<?php echo $post["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
                         </div>
                         <div>
                             <div style="font-weight:bold;color:#405d9b;">
-                                <?php echo $post_user["first_name"] . " " . $post_user["last_name"]; ?>
+                            <?php echo $post["first_name"] . " " . $post["last_name"]; ?>
                             </div>
                             <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
@@ -193,9 +195,7 @@
                           </div>
                         </form>
                       
-                        <div>
-                            <p></p>
-                        </div>
+                       
                          
               
                 </div>                              

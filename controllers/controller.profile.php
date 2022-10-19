@@ -119,41 +119,46 @@
     }
 
     //* comentários
-    if(isset($_POST["sendcomment"])) {
+    require("models/model.comment.php");
 
-        //var_dump($_POST);
+    $modelComments = new Comments();
 
-        if(
-         
-            !empty($_POST["comment"]) &&
-            !empty($_POST["postid"]) &&
-            is_numeric($_POST["postid"]) &&
-            mb_strlen($_POST["comment"]) >= 8 &&
-            mb_strlen($_POST["comment"]) <= 65535 
-          
-        ) {
+        if(isset($_POST["sendcomment"])) {
 
+            //var_dump($_POST);
+
+            if(
             
-
-            require("models/model.comment.php");
-
-            $modelComments = new Comments();
-
-            $user_id = $_SESSION["user_id"];
+                !empty($_POST["comment"]) &&
+                !empty($_POST["postid"]) &&
+                is_numeric($_POST["postid"]) &&
+                mb_strlen($_POST["comment"]) >= 8 &&
+                mb_strlen($_POST["comment"]) <= 65535 
             
-            $post_id = $_POST["postid"];
+            ) {
+
+                
+
+        
+
+                $user_id = $_SESSION["user_id"];
+                
+                $post_id = $_POST["postid"];
+                
+                $comment = $_POST["comment"];
+
+                $result = $modelComments->createComment($post_id, $user_id, $comment);
+                //var_dump($result);
+
+                header("Location: /profile");
+            }    
             
-            $comment = $_POST["comment"];
-
-            $result = $modelComments->createComment($post_id, $user_id, $comment);
-            //var_dump($result);
-
-            header("Location: /profile");
-        }    
+        }
+        
+        //$comments = $modelComments->getComments($user_id);
 
 
-    }
-              
+        
                 
     //* likes
     if(isset($_POST["sendlike"]) && isset($_POST["postid"])) {

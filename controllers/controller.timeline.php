@@ -2,11 +2,28 @@
 
     require("models/model.users.php");
     require("models/model.posts.php");
+    //require("models/model.posts.php");
 
-    $modelPosts = new Posts();
+    //$modelPosts = new Posts();
     $modelUsers = new Users();
+    $modelPosts = new Posts();
 
     $user_id = $_SESSION["user_id"];
+
+    
+
+    //$posts = $modelPosts->getPosts($user_id);
+
+    //$posts = $modelPosts->getAllPosts($user_id);
+
+    $posts = $modelPosts->getAllPosts();
+
+    $user = $modelUsers->getUser($user_id);
+
+    
+
+
+    /*$user_id = $_SESSION["user_id"];
 
     //$posts = $modelPosts->getPosts($user_id);
     $user = $modelUsers->getUser($user_id);
@@ -22,7 +39,7 @@
     if($followers_ids){
         
         $posts = $modelPosts->getAllPosts($user_id, $followers_ids);
-    }
+    }*/
 
 
     $title = "VirtualFriends";

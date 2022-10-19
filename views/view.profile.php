@@ -275,13 +275,21 @@
                             </div>
             
                         </form>
-                      
-                        <div>
-                            <p></p>
-                        </div>
-                         
-              
+<?php 
+
+    $comments = $modelComments->getComments($post_id, $user_id);
+    foreach($comments as $comment) { 
+                    echo '
+                        
+                            <p>' .$comment["comment"]. '</p>
+                        
+                    
+                    ';
+    }
+?>
                 </div>                              
+
+              
 <?php
     }
 ?>
