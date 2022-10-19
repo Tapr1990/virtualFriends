@@ -30,23 +30,22 @@
             
         }
 
-        public function likePost($data, $user_id, $post_id) {
+        public function likePost($data) {
 
-            //$is_image = 0;
+            
             
 
             $query = $this->db->prepare("
                 UPDATE posts
-                SET likes = ?
-                WHERE post_id = ? AND user_id = ?
+                SET likes = ? + 1
+                WHERE post_id = ? limit 1
             ");
         
             $query->execute([
                 $data["likes"],
-                $post_id,
-                $user_id
+                $data["post_id"]
                 
-                //$is_image["is_image"]
+              
             ]);
                 
             return $query;
@@ -72,6 +71,23 @@
             $result = $query->fetchAll();
 
             return $result;
+        }
+
+        public function getAllPosts($userid, $data) {
+            $query = $this->db->prepare("
+                SELECT post
+                FROM posts
+                WHERE user_id = ? in(?) limit 30 
+            ");
+
+            $query->execute([
+                $userid,
+                $data
+            ]);
+
+            $posts = $query->fetchAll();
+
+            return $posts;
         }
 
  
@@ -150,8 +166,7 @@
     
             
         }
-
-      
+     
     }
 
 ?>

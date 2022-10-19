@@ -117,12 +117,78 @@
                 $message = "";
             }
     }
+
+    //* comentários
+    if(isset($_POST["sendcomment"])) {
+
+        //var_dump($_POST);
+
+        if(
+         
+            !empty($_POST["comment"]) &&
+            !empty($_POST["postid"]) &&
+            is_numeric($_POST["postid"]) &&
+            mb_strlen($_POST["comment"]) >= 8 &&
+            mb_strlen($_POST["comment"]) <= 65535 
+          
+        ) {
+
+            
+
+            require("models/model.comment.php");
+
+            $modelComments = new Comments();
+
+            $user_id = $_SESSION["user_id"];
+            
+            //$post_id = $_POST["postid"];
+            
+            //$comment = $_POST["comment"];
+            
+
+            $result = $modelComments->createComment($_POST, $user_id);
+            //var_dump($result);
+
+            header("Location: /profile");
+        }    
+
+
+    }
               
                 
-              
+    //* likes
+    if(isset($_POST["sendlike"]) && isset($_POST["postid"])) {
+
+        //var_dump($_POST);
+
+        if(
+            !empty($_POST["postid"]) &&
+            is_numeric($_POST["postid"])
+            
+        ) {   
+         
+            
+        
+            //$user_id = $_SESSION["user_id"];
+
+            
+            $result = $modelPosts->likePost($_POST); //$user_id);
+
+       
+
+            header("Location: /profile");
+        }    
+
+
+    }
+   
+    
                
+    //if($_SERVER["REQUEST_METHOD"] === "POST") {
 
-
+      //  $likes = 
+    //}
+      
  
 
 

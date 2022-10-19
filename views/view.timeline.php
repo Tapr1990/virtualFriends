@@ -111,38 +111,103 @@
                     <input id="post_button" type="submit" value="Post">
                     <br>
                 </div>
+
+                <!--posts-->
                 <div id="post_bar">
+                <?php
+    
+    foreach($posts as $post) {
+
+        $post_user = $modelUsers->getUser($post["user_id"]);
+
+        $post_id = $post["post_id"];
+
+      
+    
+?>
+    
+
+                <div data-post_id="<?php echo $post_id; ?>" id="post_bar">
                     <div id="post">
                         <div>
-                            <img src="views/images/user1.jpg" style="width:75px;height:75px;margin-right: 4px">
+                      
+                            <img src="<?php echo $user["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
                         </div>
                         <div>
-                            <div style="font-weight:bold;color:#405d9b;">Leonel Messi</div>
-                            Tenho mais bolas de ouro que tu!!lol
+                            <div style="font-weight:bold;color:#405d9b;">
+                                <?php echo $post_user["first_name"] . " " . $post_user["last_name"]; ?>
+                            </div>
+                            <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
-                            <a href="#">Like</a> . <a href="#">Comment</a> . <span style="color:#999">September 26 2022</span>
+                            <div>
+                                
+                            
+
+                                   <button class ="like-button" name="like" type="button">
+                                        <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                        <span>Like</span>
+                                        <span class="count">0</span>
+                                    </button>
+
+                              
+                                
+                            </div>
+
+                            
+                            <div stye="color: #999;float:left;">
+                               
+                                <form method="post" action="/profile">
+                                    
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <input id="post_button" type="submit" value="Delete" name="delete">
+                                    <br>
+                                </form>    
+                                
+                                    
+                                
+                            </div>
+                            <div>
+                            <div style="border:solid thin #aaa;padding: 10px;background-color:white">
+                                
+                                <form method="post" action="/profile">
+                                    <input type="text" name="update" placeholder="edit post">
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <input id="post_button" type="submit" value="Edit" name="edit">
+                                    <br>
+                                </form>
+
+                            </div>
+                            </div>
                         </div>
+                    </div>
+       
+                </div>
+                <div>
+                        <form method="post" action="/profile">
+                          
+                          <div>
+            
+                              <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
+                              <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                              <input type="submit" name="sendcomment" value="send">
+                          </div>
+                        </form>
+                      
+                        <div>
+                            <p></p>
+                        </div>
+                         
+              
+                </div>                              
+<?php
+    }
+?>
                   
                             
                         
-                    </div>
+                    
                 </div>
-                <div id="post_bar">
-                    <div id="post">
-                        <div>
-                            <img src="views/images/user2.jpg" style="width:75px;height:75px;margin-right: 4px">
-                        </div>
-                        <div>
-                            <div style="font-weight:bold;color:#405d9b;">Ricardo Quaresma</div>
-                            Olha para essa foto de perfil, depois o cigano sou eu!!lol
-                            <br/><br/>
-                            <a href="#">Like</a> . <a href="#">Comment</a> . <span style="color:#999">September 26 2022</span>
-                        </div>
-                  
-                            
-                        
-                    </div>
-                </div>
+               
             </div>
 
         </div>

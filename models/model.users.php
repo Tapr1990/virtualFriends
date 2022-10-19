@@ -96,13 +96,14 @@
         }
 
 
-        public function getUsers() {
+        public function getUsers($id) {
             $query = $this->db->prepare("
                 SELECT *
                 FROM users
+                WHERE user_id = ?
             ");
     
-            $query->execute();
+            $query->execute([ $id ]);
     
             return $query->fetchAll();
         }

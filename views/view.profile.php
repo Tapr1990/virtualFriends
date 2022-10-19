@@ -76,7 +76,7 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", () =>{
-            const removeButtons = document.querySelectorAll(".remove-button");
+           
             const likeButtons = document.querySelectorAll(".like-button");
             const count = document.querySelectorAll(".count");
             const root = document.querySelector("body");
@@ -89,13 +89,17 @@
                     const post = button.parentNode.parentNode.parentNode.parentNode;
                     const post_id = post.dataset.post_id;
                     //console.log("funca");
+                    if(click) {
+                        count = click + 1
+                    }
 
-                    fetch(root + "/like/" + post_id, {
+
+                    fetch(root + "/profile/" + post_id, {
                         "method":"POST",
                         "headers": {
                             "Content-Type":"application/x-www-form-urlencoded"
                         },
-                        "body":"likes="+ click++
+                        "body":"likes="+ count.textContent
 
                     })
                     .then(response => response.json())
@@ -107,29 +111,7 @@
                 });
             });
 
-            removeButtons.forEach(button => {
-                //console.log(button);
-                button.addEventListener("click", () => {
-                    const post = button.parentNode.parentNode.parentNode.parentNode;
-                    //console.log("funca");
-                    const post_id = post.dataset.post_id;
-                    //console.log(product_id);
-
-                    fetch(root + "/delete/" + post_id, {
-                        "method":"POST",
-                        "headers": {
-                            "Content-Type":"application/x-www-form-urlencoded"
-                        }
-
-                    })
-                    .then(response => response.json())
-                    .then(result =>  {
-                        post.remove();
-                    })
-                    .catch(err => console.log(err));
-                });
-
-            });
+          
         });
 
     </script>
@@ -160,15 +142,19 @@
             <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
 
         </span>
+        <form method="post" action="/profile">
+            <input type="hidden" name="usertid" value="<?php echo $user["user_id"]; ?>">
+            <input style="margin-right:10px;background-color: #9b409a" id="post_button" type="submit" name="send" value="like">
+        </form>
         <br>
 
         <div style="font-size:20px"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></div>
         <br>
         <div id="menu_buttons"><a href="/timeline">Timeline</a></div>
-        <div id="menu_buttons">About</div>
-        <div id="menu_buttons">Friends</div>
-        <div id="menu_buttons">Photos</div>
-        <div id="menu_buttons">Settings</div>
+        <div id="menu_buttons"><a href="/about">About</a></div>
+        <div id="menu_buttons"><a href="/friends">Friends</a></div>
+        <div id="menu_buttons"><a href="/photos">Photos</a></div>
+        <div id="menu_buttons"><a href="/settings">Settings</a></div>
         
         </div>
         <div style="display: flex">
@@ -233,12 +219,20 @@
                             <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
                             <div>
-                                
-                                    
-                                <button class ="like-button" type="button">
-                                    <span>Like</span>
-                                    <span>0</span>
-                                </button>
+                                <!--<button class ="like-button" name="like" type="button">
+                                     <input type="hidden" name="postid" value="postid">
+                                     <span>Like</span>
+                                     <span class="count">0</span>
+                                 </button>-->
+                              
+                                <form method="post" action="/profile">
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <button name="sendlike" type="button" value="1">like</button>
+                                </form>
+                            
+
+
+                              
                                 
                             </div>
 
@@ -276,14 +270,17 @@
                           
                           <div>
             
-                              <textarea value="<?php echo $post["post_id"]; ?>" style="border:1px solid #405d9b;" name="comment" required placeholder="commet this post"></textarea>
+                              <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
+                              <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                              <input type="submit" name="sendcomment" value="send">
                           </div>
-                          <div>
-                              <button type="submit" name="send">Send</button>
-                          </div>
+                        </form>
+                      
+                        <div>
+                            <p></p>
+                        </div>
                          
               
-                        </form>
                 </div>                              
 <?php
     }

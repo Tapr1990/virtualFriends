@@ -20,16 +20,24 @@
 
             $filename = "uploads/" . $_FILES["image1"]["name"];
 
-            move_uploaded_file($_FILES["image1"]["tmp_name"], $filename );
+            $path = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $path = strtolower($path);
+
+            $newFileName = uniqid( time() ) . "." . $path;
+            
+            $file = "uploads/" . $newFileName;
+
+            move_uploaded_file($_FILES["image1"]["tmp_name"], $file );
 
      
-            if(file_exists($filename)) {
+            if(file_exists($file)) {
 
           
               $user_id = $_SESSION["user_id"];
      
      
-              $profileImages = $modelImages->insertProfileImage($filename, $user_id);
+              $profileImages = $modelImages->insertProfileImage($file, $user_id);
      
      
      
@@ -63,15 +71,24 @@
           if($_FILES["image2"]["size"] < $size) {
 
             $filename = "uploads/" . $_FILES["image2"]["name"];
-            move_uploaded_file($_FILES["image2"]["tmp_name"], $filename );
+
+            $path = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $path = strtolower($path);
+
+            $newFileName = uniqid( time() ) . "." . $path;
+            
+            $file = "uploads/" . $newFileName;
+
+            move_uploaded_file($_FILES["image2"]["tmp_name"], $file );
      
-            if(file_exists($filename)) {
+            if(file_exists($file)) {
      
      
               $user_id = $_SESSION["user_id"];
      
      
-              $backgroundImages = $modelImages->insertBackgroundImage($filename, $user_id);
+              $backgroundImages = $modelImages->insertBackgroundImage($file, $user_id);
      
               header("Location: /profile");
             }
