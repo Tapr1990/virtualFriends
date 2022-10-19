@@ -62,15 +62,8 @@
     <div style="width:800px;margin:auto;min-height:100px;" >
        
       
-            <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
-                <h1>insert Photos</h1>
-                <form method="Post" enctype="multipart/form-data" action="/photos">
-                    <div style="border:solid thin #aaa;padding: 10px;background-color:white">
-                        <input type="file" name="photo">
-                        <input id="post_button" type="submit" value="Insert" name="insert">
-                        <br>
-                    </div>
-                </form>
+            <div>
+                <a href="/settings">Insert Photos</a>
             </div>
 
             <div>
