@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,10 +71,17 @@
     </style>
 </head>
 <body>
+
+ 
     <div id="pgside">
         <h1>VirtualFriends<br>Admin</h1>
-        <a href="#">Dashboard</a>
+        <a href="/admin">Dashboard</a>
+        <a href="/adminusers">Users</a>
+        <a href="/adminposts">Posts</a>
         <a href="#">Edit Profile</a>
+        <a href="/adminlogout">
+            <span style="font-size:15px;float:left;margin:10px;color:black;">Logout</span>
+        </a>
       
     </div>
     <main id="pgmain">

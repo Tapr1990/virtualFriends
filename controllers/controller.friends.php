@@ -18,12 +18,12 @@
    
     if($user["gender"] == "M") {
 
-        $imageFriends = "views/images/placeholder_men.jpg";
+        $imageFriends = "images/placeholder_men.jpg";
 
     } 
     else {
 
-        $imageFriends = "views/images/placeholder_women.jpg";
+        $imageFriends = "images/placeholder_women.jpg";
     }
 
 

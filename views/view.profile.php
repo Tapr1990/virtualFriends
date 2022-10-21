@@ -78,20 +78,18 @@
         document.addEventListener("DOMContentLoaded", () =>{
            
             const likeButtons = document.querySelectorAll(".like-button");
-            const count = document.querySelectorAll(".count");
             const root = document.querySelector("body");
+            
     
             likeButtons.forEach(button => {
                 
-                //console.log(post_id);
-                let click = 0;
+                
                 button.addEventListener("click", () => {
-                    const post = button.parentNode.parentNode.parentNode.parentNode;
+                    const post = button.parentNode.parentNode.parentNode.parentNode.parentNode;
                     const post_id = post.dataset.post_id;
-                    //console.log("funca");
-                    if(click) {
-                        count = click + 1
-                    }
+                    //console.log(post);
+                    //console.log(post_id);
+                 
 
 
                     fetch(root + "/profile/" + post_id, {
@@ -99,14 +97,14 @@
                         "headers": {
                             "Content-Type":"application/x-www-form-urlencoded"
                         },
-                        "body":"likes="+ count.textContent
+                        "body":"like=" click.value
 
                     })
                     .then(response => response.json())
                     .then(result =>  {
                         console.log(result);
                     })
-                    .catch(err => alert("erro"));
+                    .catch(err => alert("erro"));*/
                     
                 });
             });
@@ -114,8 +112,12 @@
           
         });
 
+      
+
     </script>
 </head>
+
+
 <body style="font-family:tahoma;background-color:#d0d8e4;" >
     <br>    
     <div id="blue_bar">
@@ -134,11 +136,11 @@
 
     <div style="width:800px;margin:auto;min-height:400px;" >
         <div style="background-color:white;text-align:center;color:#405d9b">
-        <img src="/<?php echo $user["cover_image"]; ?>" style="width:100%;">
+        <img src="/<?php echo $cover_image; ?>" style="width:100%;">
         <span style="font-size: 12px">
             <a style="text-decoration: none;color:#00ff;float:left;" href="/image">Edit Background-Image</a>
 
-            <img src="/<?php echo $user["profile_image"]; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
+            <img src="/<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
             <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
 
         </span>
@@ -163,18 +165,24 @@
                 <div id="friends_bar">
                     Friends<br>
 <?php
+
+
     foreach($friends as $friend) {
 ?>
    
                     <div id="friends">
+                       
                         <a href="/profile/<?php echo $friend["user_id"]; ?>">
                             <img id="friends_img" src="<?php echo $imageFriends; ?>" style="width:75px;height:75px">
                             <br>
-                            <?php echo $friend["first_name"] ." ". $friend["last_name"]; ?>
+                            <p><?php echo $friend["first_name"] ." ". $friend["last_name"]; ?>
                         </a>
+                            
+                    </div>
+                      
+
 
                         
-                    </div>
 <?php
     }
 ?>
@@ -196,14 +204,14 @@
 <?php
     
     foreach($posts as $post) {
-
+        
         $post_user = $modelUsers->getUser($post["user_id"]);
-
+        
         $post_id = $post["post_id"];
-
-      
-    
-?>
+        
+        //var_dump($post_id);
+        
+        ?>
     
 
                 <div data-post_id="<?php echo $post_id; ?>" id="post_bar">
@@ -219,16 +227,21 @@
                             <p><?php echo $post["post"]; ?></p>
                             <br/><br/>
                             <div>
-                                <!--<button class ="like-button" name="like" type="button">
-                                     <input type="hidden" name="postid" value="postid">
-                                     <span>Like</span>
-                                     <span class="count">0</span>
-                                 </button>-->
-                              
-                                <form method="post" action="/profile">
-                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                    <button name="sendlike" type="button" value="1">like</button>
-                                </form>
+                               
+
+                                <?php 
+                                    /*$count = 0;
+                                    foreach($_SESSION["profile"] as $like) {
+                                        $count = $count + $like["like"];*/ 
+                                        ?>                             
+                                    <form method="post" action="/profile">
+                                        <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
+                                        <button class="like-button" name="sendlike" type="button">like</button>
+                                        
+                                    </form>
+                                <?php 
+                                    
+                                    ?>
                             
 
 
@@ -243,7 +256,7 @@
                                     
                                     <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
                                     <input id="post_button" type="submit" value="Delete" name="delete">
-                                    <br>
+                                   
                                 </form>    
                                 
                                     
@@ -276,23 +289,30 @@
             
                         </form>
 <?php 
-
-    $comments = $modelComments->getComments($post_id, $user_id);
-    foreach($comments as $comment) { 
-                    echo '
-                        
-                            <p>' .$comment["comment"]. '</p>
-                        
-                    
-                    ';
+    if($url[2] != $_SESSION["user_id"]) {
+     
+        $comments = $modelComments->getComments($post_id, $user_id);
     }
+    else{
+        $comments = $modelComments->getComments($post_id, $user_id);
+
+    }
+
+    foreach($comments as $comment) { 
+    echo '
+    
+    <p>' .$comment["comment"]. '</p>
+    
+    
+    ';
+}
 ?>
                 </div>                              
 
               
 <?php
     }
-?>
+    ?>
                             
                  
                

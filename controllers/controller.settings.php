@@ -71,8 +71,15 @@
                 $modelAbout = new About();
 
                 $user_id = $_SESSION["user_id"];
+
+                $country = $_POST["country"];
+                $city = $_POST["city"];
+                $birth_date = $_POST["birth_date"];
+                $school = $_POST["school"];
+                $university = $_POST["university"];
+                $job = $_POST["job"];
             
-                $user = $modelAbout->about($user_id, $_POST);
+                $user = $modelAbout->about($user_id, $country, $city, $birth_date, $school, $university, $job);
             
                 header("Location: /settings");
         }

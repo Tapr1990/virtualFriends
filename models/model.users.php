@@ -96,14 +96,14 @@
         }
 
 
-        public function getUsers($id) {
+        public function getAllUsers() {
             $query = $this->db->prepare("
-                SELECT *
+                SELECT user_id,  CONCAT(first_name , last_name) AS username, gender, email, date 
                 FROM users
-                WHERE user_id = ?
+                ORDER by user_id desc
             ");
     
-            $query->execute([ $id ]);
+            $query->execute();
     
             return $query->fetchAll();
         }
@@ -179,7 +179,30 @@
             return $query;
         }
 
+        public function getFriendProfile($user_id) {
+            $query = $this->db->prepare("
+                SELECT 
+                    users.user_id,
+                    users.first_name,
+                    users.last_name,
+                    users.gender,
+                    users.profile_image,
+                    users.cover_image,
+                    posts.post_id,
+                    posts.post,
+                    posts.date
+                FROM 
+                    users
+                INNER JOIN
+                    posts USING(user_id)
+                WHERE 
+                    user_id = ? limit 1
+            ");
 
+            $query->execute([ $user_id ]);
+
+            return $query->fetch();
+        }
       
     }
 ?>

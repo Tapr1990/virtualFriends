@@ -55,7 +55,7 @@
 <body style="font-family:tahoma;background-color:#e9ebee;">
     <div id="bar1">
         <div style="font-size:40px">VirtualFriends</div>
-        <div id="signup_button">Sign up</div>
+        <div id="signup_button"><a href="/register">Sign up</a></div>
     </div>
     <div id="bar2">
         Log in to VirtualFriends<br><br>
