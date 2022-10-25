@@ -46,5 +46,19 @@
 
 
         }   
+
+        public function countComments() {
+            $query = $this->db->prepare("
+                SELECT COUNT(comment_id) AS NumberOfComments
+                FROM commets
+                
+            ");
+
+            $query->execute();
+
+            $result = $query->fetchAll();
+
+            return $result[0]["NumberOfComments"];
+        }
     }
 ?>

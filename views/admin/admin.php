@@ -66,9 +66,55 @@
         table tr th {
         
         }
+<?php
+   
+        foreach($users as $user) {
 
+            $date[] = $user["date"];
+            $user[] = $user["user_id"];
+        }
+
+  
+?>
             
     </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            const data = google.visualization.arrayToDataTable([
+                ["Element", "Total", { role: "style" } ],
+                ["Users",<?php echo $NumberOfUsers; ?> , "#b87333"],
+                ["Posts",<?php echo $NumberOfPosts; ?>, "silver"],
+                ["Comments",<?php echo $NumberOfComments; ?>, "gold"],
+                ["Likes", 5 , "color: #e5e4e2"]
+            ]);
+
+            const view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                            { calc: "stringify",
+                                sourceColumn: 1,
+                                type: "string",
+                                role: "annotation" },
+                            2]);
+
+            const options = {
+                title: "Total",
+                width: 1500,
+                height: 800,
+
+                bar: {groupWidth: "50%"},
+                legend: { position: "none" },
+            };
+            const chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+
+        }
+  </script>
+   
+   
+
 </head>
 <body>
 
@@ -86,56 +132,31 @@
     </div>
     <main id="pgmain">
         <h2>Dashborad</h2>
+
         <div id="container">
             <div id="total">
                 <p>Total Users</p>
-                <p>2</p>
+                <p><?php echo $NumberOfUsers; ?></p>
             </div>
             <div id="total">
                 <p>Total Posts</p>
-                <p>3</p>
+                <p><?php echo $NumberOfPosts; ?></p>
             </div>
             <div id="total">
                 <p>Total Comments</p>
-                <p>4</p>
+                <p><?php echo $NumberOfComments; ?></p>
             </div>
             <div id="total">
                 <p>Total Likes</p>
                 <p>5</p>
             </div>
         </div>
+        <div id="columnchart_values" style="text-align:center;width: 900px; height: 500px;"></div>
 
-        <div>
-            <h3>Users List</h3>
-            <table>
-                <tr>
-                    <th>#NO</th>
-                    <th>User</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <td>#1</td>
-                    <td>Cristiano Ronaldo</td>
-                    <td>
-                        <button>login User</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>#1</td>
-                    <td>Cristiano Ronaldo</td>
-                    <td>
-                        <button>login User</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>#1</td>
-                    <td>Cristiano Ronaldo</td>
-                    <td>
-                        <button>login User</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+
+
+        
+      
     </main>
 </body>
 </html>

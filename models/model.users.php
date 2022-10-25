@@ -203,6 +203,69 @@
 
             return $query->fetch();
         }
+
+        public function deleteUser($user_id) {
+            $query = $this->db->prepare("
+                DELETE FROM users
+                WHERE user_id = ?
+            ");
+            
+            $query->execute([ $user_id ]);
+            
+            
+            return $query;
+            
+            
+            
+        }
+
+        public function editUser($data, $user_id) {
+            
+          
+            
+            
+            $query = $this->db->prepare("
+                UPDATE 
+                    users
+                SET 
+                    first_name = ?,
+                    last_name = ?,
+                    gender = ?,
+                    email = ?,
+                    password = ?
+                WHERE 
+                    user_id = ?
+            ");
+            
+            $query->execute([
+                htmlspecialchars(strip_tags(trim($data["first_name"]))),
+                htmlspecialchars(strip_tags(trim($data["last_name"]))),
+                htmlspecialchars(strip_tags(trim($data["gender"]))),
+                htmlspecialchars(strip_tags(trim($data["email"]))),
+                password_hash($data["password"],PASSWORD_DEFAULT),
+                $user_id
+            ]);
+            
+            return $query;
+            
+            
+        }
+
+        public function countUsers() {
+            $query = $this->db->prepare("
+                SELECT COUNT(user_id) AS NumberOfUsers, date
+                FROM users
+                
+            ");
+
+            $query->execute();
+
+            $result = $query->fetchAll();
+
+            return $result[0]["NumberOfUsers"];
+        }
+
+        
       
     }
 ?>

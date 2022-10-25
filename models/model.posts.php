@@ -78,9 +78,11 @@
                 SELECT
                     posts.post_id,
                     posts.post, 
+                    posts.date,
                     users.profile_image,
                     users.first_name,
-                    users.last_name 
+                    users.last_name
+                     
                 FROM 
                     posts
                 INNER JOIN
@@ -173,8 +175,45 @@
             
             
         }
-        
+
+        public function countPosts() {
+            $query = $this->db->prepare("
+                SELECT COUNT(post_id) AS NumberOfPosts
+                FROM posts
+                
+            ");
+
+            $query->execute();
+
+            $result = $query->fetchAll();
+
+            return $result[0]["NumberOfPosts"];
+        }
+
+        public function Posts() {
+            $query = $this->db->prepare("
+                SELECT
+                    post_id,
+                    user_id,
+                    post, 
+                    date
+                   
+                     
+                FROM 
+                    posts
+               
+            ");
+
+            $query->execute();
+            
+            $posts = $query->fetchAll();
+            
+            return $posts;
+        }
+            
+
+       
     }
     
-    //WHERE user_id = ? in(?) limit 30 
+  
 ?>

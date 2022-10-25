@@ -152,6 +152,12 @@
     
         //* eliminar posts
 
+
+        
+
+        
+
+
         if(isset($_POST["delete"])) {
            
            
@@ -255,21 +261,13 @@
        
         
                    
-        //if($_SERVER["REQUEST_METHOD"] === "POST") {
-    
-          //  $likes = 
-        //}
-          
-     
-    
-    
-    
+      
         
     
     
     
-        //$likes = $model->getLikes($post_id, $user_id);
-    
+       
+        //* imagens
     
         $profile_image = "";
     
@@ -321,21 +319,7 @@
     
             //$post = $model->($_POST["postid"]);
     
-            if(
-                !empty($post) &&
-                $product["stock"] >= $_POST["quantity"]
-            ) {
-    
-                $_SESSION["cart"][$product["product_id"]] = [
-                    "product_id" => $product["product_id"], 
-                    "quantity" => intval($_POST["quantity"]),
-                    "name" => $product["name"],
-                    "price" => $product["price"],
-                    "stock" => $product["stock"]
-                ];
-    
-                header("Location: " .ROOT. "/cart");
-            }
+           
     
         }
    }
@@ -344,16 +328,7 @@
 
 
     
-    /*$URI = urldecode($_SERVER['REQUEST_URI']);
-    $url = explode ("/", $URI);
-
-    //var_dump($url[2]);
-
-    $user_data = $_SESSION["user_id"];
-
-    $profile_data = $modelUsers->getFriendProfile($url[2]);
-
-    $user_data = $profile_data;*/
+   
 
     $title = "VirtualFriends";
 

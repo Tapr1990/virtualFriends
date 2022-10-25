@@ -76,43 +76,44 @@
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", () =>{
-           
-            const likeButtons = document.querySelectorAll(".like-button");
+            const deleteButtons = document.querySelectorAll(".deleteButton");
+
             const root = document.querySelector("body");
+           
+            
             
     
-            likeButtons.forEach(button => {
+            deleteButtons.forEach(button => {
                 
                 
                 button.addEventListener("click", () => {
-                    const post = button.parentNode.parentNode.parentNode.parentNode.parentNode;
+                    const post = button.parentNode.parentNode.parentNode.parentNode;
                     const post_id = post.dataset.post_id;
                     //console.log(post);
-                    //console.log(post_id);
-                 
-
 
                     fetch(root + "/profile/" + post_id, {
                         "method":"POST",
                         "headers": {
                             "Content-Type":"application/x-www-form-urlencoded"
                         },
-                        "body":"like=" click.value
+                        
 
                     })
                     .then(response => response.json())
                     .then(result =>  {
-                        console.log(result);
+                       // post.remove();
+
                     })
-                    .catch(err => alert("erro"));*/
+                    .catch(err => console.log(err));
                     
+                   
                 });
             });
 
           
         });
 
-      
+    
 
     </script>
 </head>
@@ -123,8 +124,12 @@
     <div id="blue_bar">
         <div style="width:800px;margin:auto;font-size:30px">
 
-        <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> <input type="text" id="search_box" placeholder="Search">
+        <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> 
+        <input type="text" id="search_box" placeholder="Search">
+       
         <img src="/<?php echo $user["profile_image"]; ?>" style="width:50px;height:50px;float:right;">
+      
+        
 
         <a href="/logout">
             <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
@@ -210,8 +215,8 @@
         $post_id = $post["post_id"];
         
         //var_dump($post_id);
-        
-        ?>
+
+?>     
     
 
                 <div data-post_id="<?php echo $post_id; ?>" id="post_bar">
@@ -230,18 +235,29 @@
                                
 
                                 <?php 
-                                    /*$count = 0;
-                                    foreach($_SESSION["profile"] as $like) {
-                                        $count = $count + $like["like"];*/ 
-                                        ?>                             
+                                   /*$result = $modellikes->getLikes($post_id, $user_id);
+                                   $count_status = $result["cntStatus"];
+                                    if($count_status > 0) {
+                                        $type= $result["type"];
+                                    }*/
+                                    //echo $type;
+                                ?>                             
                                     <form method="post" action="/profile">
-                                        <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
-                                        <button class="like-button" name="sendlike" type="button">like</button>
-                                        
+                                        <div>
+
+                                            <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
+                                            <input class="like" id="like_1" name="sendLike" type="button" value="like">&nbsp;(<span id="likes">23</span>)&nbsp; 
+                                        </div>
+                                        <div>
+
+                                            <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
+                                            <input class="unlike" id="unlike_1" name="sendUnlike" type="button" value="unlike">&nbsp;(<span id="unlikes">25</span>)
+                                        </div>
                                     </form>
+                                        
                                 <?php 
                                     
-                                    ?>
+                                ?>
                             
 
 
@@ -252,12 +268,14 @@
                             
                             <div stye="color: #999;float:left;">
                                
-                                <form method="post" action="/profile">
-                                    
-                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                    <input id="post_button" type="submit" value="Delete" name="delete">
+                               
+                                <form method="post" action="/profile">    
+                                    <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
+                                    <input class= "deleteButton" id="post_button" type="button" value="Delete" name="delete">
+
+                                </form>
                                    
-                                </form>    
+                                
                                 
                                     
                                 
