@@ -260,11 +260,7 @@
         }
        
         
-                   
-      
-        
-    
-    
+     
     
        
         //* imagens
@@ -322,6 +318,30 @@
            
     
         }
+        
+
+
+
+        //* fetch
+
+        /*$data = json_encode(file_get_contents("php://input"), true);
+        
+        $search = json_decode($data);
+
+        $users = $modelUsers->findUser($search);
+        //var_dump($users);
+        
+        $output = [];
+        if ($users > 0) {
+            while ($row = $users) {
+                $output[] =  $row;
+            }
+        } else {
+            $output['empty'] = "empty";
+        }
+        echo json_encode($output);*/
+        
+        
    }
 
 

@@ -27,6 +27,8 @@
        
 
             return $this->db->lastInsertId();
+
+            
         }
 
         public function getUser($user_id) {
@@ -266,6 +268,48 @@
         }
 
         
+        public function findUser($name) {
+            $query = $this->db->prepare("
+                SELECT user_id, first_name
+                FROM users
+                WHERE first_name = ?
+            ");
+
+            $query->execute([ 
+                $name
+            ]);
+
+            return $query->fetchAll();
+
+            
+        }
+
+        public function create($first_name,$last_name,$gender,$email,$password) {
+            $query = $this->db->prepare("
+                INSERT INTO users
+                (first_name, last_name, gender, email, password)
+                VALUES(?,?,?,?,?)
+            ");
+
+           
+            
+            $query->execute([
+                
+                htmlspecialchars(strip_tags(trim($first_name))),
+                htmlspecialchars(strip_tags(trim($last_name))),
+                htmlspecialchars(strip_tags(trim($gender))),
+                htmlspecialchars(strip_tags(trim($email))),
+                password_hash($password,PASSWORD_DEFAULT)
+                
+            ]);
+            
+            //$url_address = strtolower($data["first_name"]) . "." . strtolower($data["last_name"]);
+       
+
+            return $this->db->lastInsertId();
+
+            
+        }
       
     }
 ?>

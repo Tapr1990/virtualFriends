@@ -2,7 +2,7 @@
 
     session_destroy();
 
-    header("Location: /admin/adminlogin");
+    header("Location: /adminlogin");
 
 
 

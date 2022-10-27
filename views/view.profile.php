@@ -74,69 +74,50 @@
         }
 
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () =>{
-            const deleteButtons = document.querySelectorAll(".deleteButton");
-
-            const root = document.querySelector("body");
-           
-            
-            
-    
-            deleteButtons.forEach(button => {
-                
-                
-                button.addEventListener("click", () => {
-                    const post = button.parentNode.parentNode.parentNode.parentNode;
-                    const post_id = post.dataset.post_id;
-                    //console.log(post);
-
-                    fetch(root + "/profile/" + post_id, {
-                        "method":"POST",
-                        "headers": {
-                            "Content-Type":"application/x-www-form-urlencoded"
-                        },
-                        
-
-                    })
-                    .then(response => response.json())
-                    .then(result =>  {
-                       // post.remove();
-
-                    })
-                    .catch(err => console.log(err));
-                    
-                   
-                });
-            });
-
-          
-        });
-
-    
-
-    </script>
+   
 </head>
 
 
 <body style="font-family:tahoma;background-color:#d0d8e4;" >
     <br>    
     <div id="blue_bar">
-        <div style="width:800px;margin:auto;font-size:30px">
+        <form method="post" action="/profile">
+            <div style="width:800px;margin:auto;font-size:30px">
 
-        <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> 
-        <input type="text" id="search_box" placeholder="Search">
-       
-        <img src="/<?php echo $user["profile_image"]; ?>" style="width:50px;height:50px;float:right;">
-      
-        
+            <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> 
+                <input type="text" id="search_box" name="find" placeholder="Search" aria-label="search">
+                <button type="submit" name="submit">&#128269;</button>
+<?php
+         if(isset($_POST["submit"])) {
+            if(!empty($_POST["find"])) {
+ 
+                $searchs = $modelUsers->findUser($_POST["find"]);
+                foreach($searchs as $search) {
 
-        <a href="/logout">
-            <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
-        </a>
+                    echo'
+                        <p>' .$search["first_name"]. '</p>
+                    ';
+                }
+            }
+                
+    
+        }
 
 
-        </div>
+?>
+                
+                <img src="/<?php echo $user["profile_image"]; ?>" style="width:50px;height:50px;float:right;">
+                
+                
+                
+                <a href="/logout">
+                    <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
+                </a>
+                
+                
+            </div>
+        </form>
+
     </div>
 
     <div style="width:800px;margin:auto;min-height:400px;" >

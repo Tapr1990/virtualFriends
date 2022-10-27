@@ -69,6 +69,58 @@
 
             
     </style>
+    <script>
+            /*document.addEventListener("DOMContentLoaded", () =>{
+
+                const saveUser = document.querySelector("#save");
+                const root = document.querySelector("body");
+
+                saveUser.addEventListener("click", () => {
+
+                
+                    let first_name = document.querySelector("#first_name").value;
+                    let last_name = document.querySelector("#last_name").value;
+                    let gender = document.querySelector("#gender").value;
+                    let email = document.querySelector("#email").value;
+                    let password = document.querySelector("#password").value;
+                    let password2 = document.querySelector("#password2").value;
+
+
+                    fetch(root + "/adminnewuser/", {
+                        "method": "POST",
+                        "headers": {
+                            "Content-Type": "application/json"
+                            //"Content-Type":"application/x-www-form-urlencoded"
+                        },
+                        "body": JSON.stringify({
+                            "first_name": first_name,
+                            "last_name": last_name,
+                            "gender": gender,
+                            "email": email,
+                            "password": password,
+                            "password2": password2,
+                        })
+
+                    })
+                    .then(response => response.json())
+                    .then(result =>  {
+                        console.log(result);
+                    });
+                    //.catch(err => alert("Erro"));
+                    
+
+                });
+            });*/
+          
+          
+
+              
+
+           
+        
+
+          
+    </script>
 </head>
 <body>
 
@@ -86,21 +138,21 @@
     </div>
     <main id="pgmain">
         <h2>Dashborad</h2>
-        <form method="post" action="/adminnewuser">
-            <input type="text" name="first_name" id="text" placeholder="First Name"><br><br>
-            <input type="text" name="last_name" id="text" placeholder="Last Name"><br><br>
+        <div>
+            <input type="text" name="first_name" id="first_name" placeholder="First Name"><br><br>
+            <input type="text" name="last_name" id="last_name" placeholder="Last Name"><br><br>
             <span style="font-weight: normal;">Gender:</span><br>
-            <select name="gender" id="text">
+            <select name="gender" id="gender">
                 <option value="M">Male</option>
                 <option value="F">Female</option>
             </select>
             <br><br>
-            <input type="email" name="email" id="text" placeholder="Email"><br><br>
-            <input type="password" name="password" id="text" placeholder="Password"><br><br>
-            <input type="password" name="password2" id="text" placeholder="Confirme Password"><br><br>
-            <input type="submit" name="send" id="button" value="Sign up">
+            <input type="email" name="email" id="email" placeholder="Email"><br><br>
+            <input type="password" name="password" id="password" placeholder="Password"><br><br>
+            <input type="password" name="password2" id="password2" placeholder="Confirme Password"><br><br>
+            <button type="submit" name="send" id="save">send</button>
             <br><br><br>
-        </form>  
+        </div>  
     </main>
 </body>
 </html>
