@@ -77,7 +77,10 @@
                     <input type="hidden" name="photoid" value="<?php echo $photo["photo_id"]; ?>">
                     <input type="submit" value="x" name="remove">
                     <br>
-                </form>  
+                </form>
+                <div class="modal-dialog modal-fullscreen-sm-down"><
+                    <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
+                </div>  
 <?php
  }
 ?>

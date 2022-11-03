@@ -270,7 +270,7 @@
         
         public function findUser($name) {
             $query = $this->db->prepare("
-                SELECT user_id, first_name
+                SELECT user_id, first_name, profile_image
                 FROM users
                 WHERE first_name = ?
             ");

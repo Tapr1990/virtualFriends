@@ -3,7 +3,7 @@
 
     Class About extends Database {
 
-        public function about($user_id, $country, $city, $birth_date, $school, $university, $job) {
+        public function about($user_id, $data) {
             $query = $this->db->prepare("
                 INSERT INTO about
                 (user_id, country, city, birth_date, school, university, job)
@@ -14,22 +14,46 @@
             
             $query->execute([
                 $user_id,
-                $country,
-                $city,
-                $birth_date,
-                $school,
-                $university,
-                $job
-                
+                $data["country"],
+                $data["city"],
+                $data["birth_date"],
+                $data["school"],
+                $data["university"],
+                $data["job"]
             ]);
             
+                
+            $result = $this->db->lastInsertId();
+            
+            return $result;
             
        
 
-            $result = $this->db->lastInsertId();
 
-            return $result;
         }
+
+        public function getAbout($user_id) {
+            $query = $this->db->prepare("
+                SELECT 
+                    user_id, 
+                    country,
+                    city,
+                    birth_date,
+                    school,
+                    university,
+                    job
+
+                FROM 
+                    about
+                WHERE
+                    user_id = ?
+            ");
+
+            $query->execute([ $user_id ]);
+
+            return $query->fetch();
+        }
+
     }
 
     /*

@@ -86,47 +86,7 @@
         <h1>Settings</h1>
       
             <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
-                <!--<h2>Edit User Data</h2>
-                <form method="post" action="/settings">
-                    <div class="row">
-    
-                        <label>
-                            Frist Name
-                            <input type="text" name="first_name"> 
-                        </label>
-                    </div>
-                    <div class="row">
-    
-                        <label>
-                            Last Name
-                            <input type="text" name="last_name"> 
-                        </label>
-                    </div>
-                    <div class="row">
-    
-                        <label>
-                            Email
-                            <input type="email" name="email"> 
-                        </label>
-                    </div>
-                    <div class="row">
-    
-                        <label class="row">
-                            New Password
-                            <input type="password" name="newpassword1"> 
-                        </label>            
-                    </div>
-                    <div class="row">
-    
-                        <label class="row">
-                            Repeat New Password
-                            <input type="password" name="newpassword2"> 
-                        </label>            
-                    </div>
-
-                    <button type="submit" name="send">Submit</button>
-                
-                </form>-->  
+             
                
                 <h2>Create About Page</h2>
                 <form method="post" action="/settings">

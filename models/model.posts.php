@@ -30,48 +30,7 @@
             
         }
 
-        public function likePost($data) {
-
-            
-            
-
-            $query = $this->db->prepare("
-                UPDATE posts
-                SET likes = ? + 1
-                WHERE post_id = ? limit 1
-            ");
-        
-            $query->execute([
-                $data["likes"],
-                $data["post_id"]
-                
-              
-            ]);
-                
-            return $query;
     
-            
-        }
-
-        /*public function getLikes($post_id) {
-
-     
-
-            $query = $this->db->prepare("
-                SELECT likes
-                FROM posts
-                WHERE post_id = ? 
-            ");
-        
-            $query->execute([
-                $post_id,
-                
-            ]);
-            
-            $result = $query->fetchAll();
-
-            return $result;
-        }*/
 
         public function getAllPosts() {
             $query = $this->db->prepare("
@@ -139,8 +98,8 @@
         
         public function deletePost($post_id) {
             $query = $this->db->prepare("
-            DELETE FROM posts
-            WHERE post_id = ?
+                DELETE FROM posts
+                WHERE post_id = ?
             ");
             
             $query->execute([ $post_id ]);
@@ -154,13 +113,12 @@
         
         public function editPost($post, $post_id) {
             
-            //$is_image = 0;
-            
+          
             
             $query = $this->db->prepare("
-            UPDATE posts
-            SET post = ?
-            WHERE post_id = ?
+                UPDATE posts
+                SET post = ?
+                WHERE post_id = ?
             ");
             
             $query->execute([
@@ -168,7 +126,7 @@
                 $post_id
                 
                 
-                //$is_image["is_image"]
+                
             ]);
             
             return $query;
@@ -211,6 +169,7 @@
             return $posts;
         }
             
+        
 
        
     }

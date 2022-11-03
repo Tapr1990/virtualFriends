@@ -1,45 +1,6 @@
 <?php
 
-   /* if(isset($_POST["send"])) {
-
-                    
-
-        if(
-        
-            filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) &&
-            $_POST["newpassword1"] === $_POST["newpassword2"] &&
-            mb_strlen($_POST["first_name"]) >= 3 &&
-            mb_strlen($_POST["first_name"]) <= 50 &&
-            mb_strlen($_POST["last_name"]) >= 3 &&
-            mb_strlen($_POST["last_name"]) <= 50 &&
-            mb_strlen($_POST["newpassword1"]) >= 8 &&
-            mb_strlen($_POST["newpassword1"]) <= 1000 &&
-            !is_numeric($_POST["first_name"]) &&
-            !is_numeric($_POST["last_name"]) && 
-            !empty($_POST["email"]) &&
-            !empty($_POST["first_name"]) &&
-            !empty($_POST["last_name"]) &&
-            !empty($_POST["newpassword1"]) 
-
-        
-        
-        ) {
-
-            require("models/model.users.php");
-
-            $modelUsers = new Users();
-
-            $user = $modelUsers->updateUsers($_POST);
-
-            header("Location: /profile");
-
-        
-    
-        }
-
-    } else {
-    $message = "Fill the fields correctly";
-    }*/
+   
 
     if(isset($_POST["send"])) {
 
@@ -59,11 +20,18 @@
             mb_strlen($_POST["university"]) <= 60 &&
             mb_strlen($_POST["job"]) >= 10 &&
             mb_strlen($_POST["job"]) <= 60 &&
-            !is_numeric($_POST["country"]) &&
+            !empty($_POST["country"]) &&
+            !empty($_POST["city"]) &&
+            !empty($_POST["birth_date"]) &&
+            !empty($_POST["school"]) &&
+            !empty($_POST["university"]) && 
+            !empty($_POST["job"]) 
+          
+            /*!is_numeric($_POST["country"]) &&
             !is_numeric($_POST["city"]) && 
             !is_numeric($_POST["school"]) && 
             !is_numeric($_POST["university"]) && 
-            !is_numeric($_POST["job"])  
+            !is_numeric($_POST["job"])*/  
         ) {
             
                 require("models/model.about.php");
@@ -72,16 +40,13 @@
 
                 $user_id = $_SESSION["user_id"];
 
-                $country = $_POST["country"];
-                $city = $_POST["city"];
-                $birth_date = $_POST["birth_date"];
-                $school = $_POST["school"];
-                $university = $_POST["university"];
-                $job = $_POST["job"];
+
             
-                $user = $modelAbout->about($user_id, $country, $city, $birth_date, $school, $university, $job);
+                $user = $modelAbout->about($_POST, $user_id);
+
+                //var_dump($user);
             
-                header("Location: /settings");
+                header("Location: /profile");
         }
            
     } else {

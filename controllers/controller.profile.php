@@ -3,11 +3,13 @@
    require("models/model.users.php");
    require("models/model.posts.php");
    require("models/model.comment.php");
+   require("models/model.likes.php");
     
    
    $modelComments = new Comments();
    $modelUsers = new Users();
    $modelPosts = new Posts();
+   $modelLikes = new Likes();
    
    
    $URI = urldecode($_SERVER['REQUEST_URI']);
@@ -117,7 +119,7 @@
         //* editar posts
 
         if(isset($_POST["edit"])) {
-           
+           var_dump($_POST["postid"]);
           
                 if(
                    
@@ -227,14 +229,13 @@
                 }    
                 
             }
-            
-            //$comments = $modelComments->getComments($user_id);
+           
     
     
             
                     
         //* likes
-        if(isset($_POST["sendlike"]) && isset($_POST["postid"])) {
+        if(isset($_POST["like"])) {
     
             //var_dump($_POST);
     
@@ -246,11 +247,11 @@
              
                 
             
-                //$user_id = $_SESSION["user_id"];
-    
+                $user_id = $_SESSION["user_id"];
+                $post_id = $_POST["postid"];
                 
-                $result = $modelPosts->likePost($_POST); //$user_id);
-    
+                //$result1 = $modelPosts->likes($_POST, $user_id);
+                $result = $modelLikes->insertLikes($post_id, $user_id);
            
     
                 header("Location: /profile");
@@ -318,20 +319,26 @@
            
     
         }
-        
 
+     
+
+        
 
 
         //* fetch
 
-        /*$data = json_encode(file_get_contents("php://input"), true);
-        
-        $search = json_decode($data);
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $users = $modelUsers->findUser($search);
+            $json = file_get_contents('php://input');
+          
+            $data = json_decode($json);
+            echo '$data';
+        }
+
+        //$users = $modelUsers->findUser($search);
         //var_dump($users);
         
-        $output = [];
+        /*$output = [];
         if ($users > 0) {
             while ($row = $users) {
                 $output[] =  $row;
