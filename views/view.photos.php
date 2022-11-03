@@ -1,91 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $title; ?></title>
-    <style type="text/css">
-        #blue_bar {
-            height:50px;
-            background-color:#405d9b;
-            color:#d9dfeb;
-         
-        }
-        #search_box{
-            width: 400px;
-            height: 20px;
-            border-radius: 5px;
-            border: none;
-            padding: 4px;
-            font-size: 14px;
-        }
+<?php
+    require("layout/header.php");
+?>
+    <section>
+            <div style="background-color:white;text-align:center;color:#405d9b">
+                <img src="/<?php echo $cover_image; ?>" style="width:100%;">
+                <span style="font-size: 12px">
+                    <a style="text-decoration: none;color:#00ff;float:left;" href="/image">Edit Background-Image</a>
         
-        #post_button {
-            float: right;
-            background-color:#405d9b;
-            border: none;
-            color: white;
-            padding: 4px;
-            font-size: 14px;
-            border-radius: 2px;
-            width: 50px;
-        }
-        #post_bar {
-            margin-top: 20px;
-            background-color: white;
-            padding: 10px;
-        }
-        #post {
-            padding: 4px;
-            font-size: 13px;
-            display: flex;
-        }
-        #photo img{
-            margin: auto 10px;
-        }
-
-    </style>
-</head>
-<body style="font-family:tahoma;background-color:#d0d8e4;" >
-    <br>    
-    <div id="blue_bar">
-        <div style="width:800px;margin:auto;font-size:30px">
-
-        VirtualFriends &nbsp &nbsp <input type="text" id="search_box" placeholder="Search">
-        <img src="views/images/selfie.jpg" style="width:50px;float:right;">
-        <a href="/logout">
-            <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
-        </a>
-        </div>
-    </div>
-    <div style="width:800px;margin:auto;min-height:100px;" >
-       
-      
-            <div>
-                <a href="/settings">Insert Photos</a>
-            </div>
-
-            <div>
-                <h2>Photos</h2>
-<?php
- foreach($photos as $photo) {
-?>
-                <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
-                <form method="post" action="/photos">
-                                    
-                    <input type="hidden" name="photoid" value="<?php echo $photo["photo_id"]; ?>">
-                    <input type="submit" value="x" name="remove">
-                    <br>
+                    <img src="/<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
+                    <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
+        
+                </span>
+                <form method="post" action="/profile">
+                    <input type="hidden" name="usertid" value="<?php echo $user["user_id"]; ?>">
+                    <input style="margin-right:10px;background-color: #9b409a" class="post_button" type="submit" name="send" value="like">
                 </form>
-                <div class="modal-dialog modal-fullscreen-sm-down"><
-                    <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
-                </div>  
+                <br>
+        
+                <div style="font-size:20px"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></div>
+                <br>
+                <div class="menu_buttons"><a href="/timeline">Timeline</a></div>
+                <div class="menu_buttons"><a href="/about">About</a></div>
+                <div class="menu_buttons"><a href="/friends">Friends</a></div>
+                <div class="menu_buttons"><a href="/photos">Photos</a></div>
+                <div class="menu_buttons"><a href="/settings">Settings</a></div>
+            </div>    
+    </section>
+    <section>
+
+        <div style="width:800px;margin:auto;min-height:100px;" >
+           
+          
+                <div>
+                    <a href="/settings">Insert Photos</a>
+                </div>
+    
+                <div>
+                    <h2>Photos</h2>
 <?php
- }
+    foreach($photos as $photo) {
 ?>
-            </div>
-    </div>
+                    <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
+                    <form method="post" action="/photos">
+                                        
+                        <input type="hidden" name="photoid" value="<?php echo $photo["photo_id"]; ?>">
+                        <input type="submit" value="x" name="remove">
+                        <br>
+                    </form>
+                    <div class="modal-dialog modal-fullscreen-sm-down"><
+                        <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
+                    </div>  
+<?php
+    }
+?>
+                </div>
+        </div>
+    </section>
+<?php
+    require("layout/footer.php");
+?>
 
         
 
@@ -96,5 +69,3 @@
 
         
 
-</body>
-</html>

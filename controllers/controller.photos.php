@@ -88,7 +88,45 @@
         else {
             $message = "";
         }
-}
+    }
+
+    require("models/model.users.php");
+
+    if(is_numeric($_SESSION["user_id"])){
+
+        $user_id = $_SESSION["user_id"];
+
+    }
+ 
+  
+    $modelUsers = new Users();
+
+    $user = $modelUsers->getUser($user_id);
+
+    
+
+    $profile_image = "";
+    
+    if($user["profile_image"] == "") {
+
+        $profile_image = "images/placeholder_men.jpg";
+    }
+    else {
+        $profile_image = $user["profile_image"];
+    }
+
+
+    $cover_image = "";
+
+    if($user["cover_image"] == "") {
+
+        $cover_image = "images/placeholder_2.jpg";
+    }
+    else {
+        $cover_image = $user["cover_image"];
+    }
+
+
 
     $title = "VirtualFriends";
 

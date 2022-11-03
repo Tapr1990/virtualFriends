@@ -1,165 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/bc3418e67d.js" crossorigin="anonymous"></script>
-    <title><?php echo $title; ?></title>
-  
-    <style type="text/css">
-        .blue_bar {
-            height:50px;
-            background-color:#405d9b;
-            color:#d9dfeb;
-         
-        }
-        #search_box{
-            width: 400px;
-            height: 20px;
-            border-radius: 5px;
-            border: none;
-            padding: 4px;
-            font-size: 14px;
-        }
-        .menu_buttons {
-            width: 100px;
-            display: inline-block;
-            margin: 2px;
-        }
-        .friends_img {
-            width:75px;
-            margin: 8px;
-            float: left;
-        }
-        .friends_bar {
-            min-height:400px;
-            margin-top: 20px;
-            background-color:white;
-            color: #aaa;
-            padding: 8px;
-        }
-        .friends {
-            clear: both;
-            font-size: 12px;
-            font-weight: bold;
-            border: solid 2px white;
-            color: #405d9b;
-        }
-        textarea {
-            width: 100%;
-            border: none;
-            font-family: tahoma;
-            font-size: 14px;
-            height: 50px;
-        }
-        .post_button {
-            float: right;
-            background-color:#405d9b;
-            border: none;
-            color: white;
-            padding: 4px;
-            font-size: 14px;
-            border-radius: 2px;
-            width: 50px;
-        }
-        .delete_button, .like, .unlike  {
-            background-color: #405d9b;
-            border: none;
-            color: white;
-            padding: 4px;
-            font-size: 14px;
-            border-radius: 2px;
-        }
-            
-        
-            
-        .post_bar {
-            margin-top: 20px;
-            background-color: white;
-            padding: 10px;
-        }
-        .post {
-            padding: 4px;
-            font-size: 13px;
-            display: flex;
-        }
-        main {
-            width:800px;
-            margin:auto;
-            min-height:400px;
-        }
-        .modal {
-            width: 500px;
-            height: 500px;
-            background-color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-            animation: animate;
-            animation-duration: 800ms;
-        }
-        @keyframes animate {
-            from{opacity: 1;}
-            from{opacity: 0;}
-        }
-
-    </style>
-    
-
-    <script>
-
-    </script>
-
-
-    
-   
-</head>
-
-
-<body style="font-family:tahoma;background-color:#d0d8e4;" >
 <?php
-         if(isset($_POST["submit"])) {
-            if(!empty($_POST["find"])) {
- 
-                $searchs = $modelUsers->findUser($_POST["find"]);
-                foreach($searchs as $search) {
-
-                    echo'
-                        <div>
-                            <a href="/profile/' .$search["user_id"]. '">
-                                <p>' .$search["first_name"]. '</p>
-                                <img src="' .$search["profile_image"]. '" width= 50px height= 50px >
-                            </a>
-                        </div>
-
-                    ';
-                }
-            }
-                
-    
-        }
-
-
+    require("layout/header.php");
 ?>
-    <header>
-        <div class="blue_bar">
-            <form method="post" action="/profile">
-                <div style="width:800px;margin:auto;font-size:30px">
-                    <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> 
-                    <input type="text" id="search_box" name="find" placeholder="Search" aria-label="search">
-                    <button type="submit" name="submit">&#128269;</button>
-                    <img src="/<?php echo $user["profile_image"]; ?>" style="width:50px;height:50px;float:right;">
-                    <a href="/logout">
-                        <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
-                    </a>
-                </div>
-            </form>
-        </div>
-    </header>
-    <main>
+
         
         <section>
             <div style="background-color:white;text-align:center;color:#405d9b">
@@ -211,22 +53,15 @@
                                     </div>
                                 </a>
                             </div>
-
-
-                                    
-                                    
-                              
-        
-        
-                                
 <?php
     }
 ?>
+
                         </div>
                     </div>
-                    
-                    
-                    <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
+
+
+                        <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
                         <div style="border:solid thin #aaa;padding: 10px;background-color:white">
                             
                             <form method="POST" enctype="multipart/form-data" action="/profile">
@@ -237,6 +72,13 @@
                             </form>
                             
                         </div>
+
+                                    
+                                    
+                              
+        
+        
+                                
                     
                 
 <?php
@@ -366,9 +208,10 @@
                 </div>
             </div>
         </section>
-    </main>
-</body>
-</html>
+    
+<?php
+    require("layout/footer.php")
+?>
                     
                     
                     

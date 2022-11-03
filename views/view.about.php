@@ -1,7 +1,7 @@
 <?php
     require("layout/header.php");
 ?>
-        <section>
+    <section>
             <div style="background-color:white;text-align:center;color:#405d9b">
                 <img src="/<?php echo $cover_image; ?>" style="width:100%;">
                 <span style="font-size: 12px">
@@ -25,51 +25,53 @@
                 <div class="menu_buttons"><a href="/photos">Photos</a></div>
                 <div class="menu_buttons"><a href="/settings">Settings</a></div>
             </div>    
-        </section>
-        <section>
+    </section>
+    <section>
 
-            <div style="display: flex">
-                <div style="min-height:400px;flex:1">
+        <div style="width:800px;margin:auto;min-height:100px;" >
+           
+          
+             
     
-                    <div class="friends_bar">
-                        Friends<br>
+                <div>
+                    <h2>About</h2>
 <?php
-    foreach($friends as $friend) {
-?>
-       
-                        <div class="friends">
-                            <a href="/profile/<?php echo $friend["user_id"]; ?>">
-                                <img class="friends_img" src="<?php echo $imageFriends; ?>" style="width:75px;height:75px">
-                                <br>
-                                <?php echo $friend["first_name"] ." ". $friend["last_name"]; ?>
-                            </a>
-    
-                            
+                //foreach($results as $result) {
+                    echo'
+                        <div>
+                            <dl>
+                                <dt>Country</dt>
+                                <dd></dd>
+                                <dt>city</dt>
+                                <dd></dd>
+                                <dt>Birth Date</dt>
+                                <dd></dd>
+                                <dt>School</dt>
+                                <dd></dd>
+                                <dt>University</dt>
+                                <dd></dd>
+                                <dt>Job</dt>
+                                <dd></dd>
+                                
+                            </dl>                    
                         </div>
-<?php
-    }
+                    ';
+                //}          
 ?>
-                    </div>
+                   
+    
                 </div>
-            </div>
-            </div>
-        </section>
+        </div>
+    </section>
 <?php
     require("layout/footer.php");
 ?>
-                     
-                
-                
-                
-                               
-                            
-                        
-           
-                
-                    
-                                
-                     
-                   
-    
+        
 
+        
+                
+              
+                
+
+        
 
