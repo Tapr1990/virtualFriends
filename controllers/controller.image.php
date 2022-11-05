@@ -42,21 +42,25 @@
      
      
               header("Location: /profile");
+              http_response_code(200);
             }
 
           }
           else {
             $message = "Error! Add a valid image size!";
+            http_response_code(400);
           }
       } 
       else {
           $message = "Error! Add a valid image type!";
+          http_response_code(400);
       }
 
     }
     else {
 
       $message = "Error! Add an image!";
+      http_response_code(405);
     }
 
 
@@ -91,21 +95,25 @@
               $backgroundImages = $modelImages->insertBackgroundImage($file, $user_id);
      
               header("Location: /profile");
+              http_response_code(200);
             }
 
           }
           else {
             $message = "Error! Add a valid image size!";
+            http_response_code(400);
           }
       } 
       else {
           $message = "Error! Add a valid image type!";
+          http_response_code(400);
       }
 
     }
     else {
 
       $message = "Error! Add an image!";
+      http_response_code(405);
     }
 
 

@@ -1,7 +1,11 @@
 <?php
     require("layout/header.php");
 ?>
-
+<?php
+    if(isset($message)) {
+        echo '<p role="alert">' .$message. '</p>';
+    }
+?>
         
         <section>
             <div style="background-color:white;text-align:center;color:#405d9b">
@@ -14,9 +18,10 @@
         
                 </span>
                 <form method="post" action="/profile">
-                    <input type="hidden" name="usertid" value="<?php echo $user["user_id"]; ?>">
-                    <input style="margin-right:10px;background-color: #9b409a" class="post_button" type="submit" name="send" value="like">
+                    <input style="margin-right:20px;background-color: #405d9b"  type="submit" name="add" value="Add Friend">
                 </form>
+                    
+              
                 <br>
         
                 <div style="font-size:20px"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></div>

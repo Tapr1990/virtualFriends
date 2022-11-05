@@ -47,10 +47,16 @@
                 //var_dump($user);
             
                 header("Location: /profile");
+                http_response_code(200);
         }
            
-    } else {
-        $message = "Fill the fields correctly";
+         else {
+            $message = "Error! Fill the fields correctly";
+            http_response_code(400);
+        }
+    }else {
+        $message = "Error! Method not Alowed";
+        http_response_code(405);
     }
            
             

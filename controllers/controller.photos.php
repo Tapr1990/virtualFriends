@@ -39,15 +39,20 @@
             
             
                         header("Location: /photos");
+                        http_response_code(200);
                     }
 
                 }
                 else {
-                $message = "Error! Add a valid photo size!";
+                    $message = "Error! Add a valid photo size!";
+                    http_response_code(400);
                 }
             } 
             else {
                 $message = "Error! Add a valid photo type!";
+                http_response_code(400);
+                
+            
             }
        
 
@@ -55,11 +60,25 @@
     else {
 
         $message = "Error! Add an photo!";
+        http_response_code(405);
     }
 
 
+    //* get photos
+
+    if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
+        http_response_code(400);
+        require("views/view.error_400.php");
+        exit;
+    }
 
     $photos = $model->getPhotos($_SESSION["user_id"]);
+
+    if(empty($photos)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
 
 
 
@@ -83,14 +102,28 @@
            
 
             header("Location: /photos");
-            
+            http_response_code(200);
+
+        } else {
+            $message = "Error! Bad Request";
+            http_response_code(400);
         }
-        else {
-            $message = "";
-        }
+    }else {
+    
+        $message = "Error! Method not allowed";
+        http_response_code(405);
     }
 
+    
+        
+
     require("models/model.users.php");
+
+    if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
+        http_response_code(400);
+        require("views/view.error_400.php");
+        exit;
+    }
 
     if(is_numeric($_SESSION["user_id"])){
 
@@ -103,6 +136,12 @@
 
     $user = $modelUsers->getUser($user_id);
 
+    if(empty($user)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
+
     
 
     $profile_image = "";
@@ -110,9 +149,11 @@
     if($user["profile_image"] == "") {
 
         $profile_image = "images/placeholder_men.jpg";
+        http_response_code(200);
     }
     else {
         $profile_image = $user["profile_image"];
+        http_response_code(200);
     }
 
 
@@ -121,9 +162,11 @@
     if($user["cover_image"] == "") {
 
         $cover_image = "images/placeholder_2.jpg";
+        http_response_code(200);
     }
     else {
         $cover_image = $user["cover_image"];
+        http_response_code(200);
     }
 
 

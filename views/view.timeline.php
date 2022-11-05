@@ -1,7 +1,11 @@
 <?php
     require("layout/header.php");
 ?>
-
+<?php
+    if(isset($message)) {
+        echo '<p role="alert">' .$message. '</p>';
+    }
+?>
     <section>
 
         <div style="width:800px;margin:auto;min-height:400px;" >
@@ -20,7 +24,7 @@
                         <br>
                     </div>
     
-                    <!--posts-->
+                   
                     
 <?php
       

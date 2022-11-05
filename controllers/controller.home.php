@@ -17,11 +17,20 @@
                 $_SESSION["user_id"] = $user["user_id"];
 
                 header("Location: /profile");
+                http_response_code(200);
                 exit;
+            } else {
+                $message = "Error! User Already Exists";
+                http_response_code(404);
             }
+        } else {
+            $message = "Error! Incorrect data, confirm the email or password";
+            http_response_code(400);
         }
 
-        $message = "Incorrect data, confirm the email or password";
+    }else {
+        $message = "Error! Method Not Alowed";
+        http_response_code(405);
     }
 
 

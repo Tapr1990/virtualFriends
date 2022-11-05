@@ -5,8 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/bc3418e67d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="/styles.css">  
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        function sendAction(constant, id){
+            $.post("/profile/" + "action=sendRequest" + id, function(res){
+                alert(res);
+            })
+        }
+    </script>
+ 
 </head>
 <body style="font-family:tahoma;background-color:#d0d8e4;" >
 <?php

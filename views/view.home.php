@@ -1,6 +1,11 @@
 <?php
     require("layout/header_login_register.php");
 ?>
+<?php
+    if(isset($message)) {
+        echo '<p role="alert">' .$message. '</p>';
+    }
+?>
         <div class="bar1">
             <div>
                 <h1 style="font-size:25px">VirtualFriends</h1>

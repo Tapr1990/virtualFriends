@@ -1,6 +1,11 @@
 <?php
     require("layout/header.php");
 ?>
+<?php
+    if(isset($message)) {
+        echo '<p role="alert">' .$message. '</p>';
+    }
+?>
         <section>
             <div style="background-color:white;text-align:center;color:#405d9b">
                 <img src="/<?php echo $cover_image; ?>" style="width:100%;">

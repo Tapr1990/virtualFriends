@@ -4,28 +4,56 @@
    require("models/model.posts.php");
    require("models/model.comment.php");
    require("models/model.likes.php");
+   require("models/model.requests.php");
     
    
    $modelComments = new Comments();
    $modelUsers = new Users();
    $modelPosts = new Posts();
    $modelLikes = new Likes();
+   $modelRequests = new Requests();
    
    
    $URI = urldecode($_SERVER['REQUEST_URI']);
    $url = explode ("/", $URI);
 
    
+   
 
    if(!empty($url[2]) && $url[2] != $_SESSION["user_id"]) {
 
        $user_id = $url[2];
 
+       if(empty($user_id) || !is_numeric($user_id)) {
+            http_response_code(400);
+            require("views/view.error_400.php");
+            exit;
+       }
+
        $user = $modelUsers->getUser($user_id); 
+
+       if(empty($user)) {
+            http_response_code(404);
+            require("views/view.error_404.php");
+            exit;
+        }
 
        $posts = $modelPosts->getPosts($user_id);
 
+       if(empty($posts)) {
+            http_response_code(404);
+            require("views/view.error_404.php");
+            exit;
+        }
+
        $friends = $modelUsers->getFriends($user_id);
+
+       if(empty($friends)) {
+            http_response_code(404);
+            require("views/view.error_404.php");
+        exit;
+        }
+
 
 
        $profile_image = "";
@@ -33,9 +61,11 @@
        if($user["profile_image"] == "") {
    
            $profile_image = "images/placeholder_men.jpg";
+           http_response_code(200);
        }
        else {
            $profile_image = $user["profile_image"];
+           http_response_code(200);
        }
    
    
@@ -44,9 +74,11 @@
        if($user["cover_image"] == "") {
    
            $cover_image = "images/placeholder_2.jpg";
+           http_response_code(200);
        }
        else {
            $cover_image = $user["cover_image"];
+           http_response_code(200);
        }
    
    
@@ -57,17 +89,38 @@
        if($user["gender"] == "M") {
    
            $imageFriends = "images/placeholder_men.jpg";
+           http_response_code(200);
    
        } 
        else {
    
            $imageFriends = "images/placeholder_women.jpg";
+           http_response_code(200);
        }
+
+        //* resquets
+
+        if(isset($_POST["add"])) {
+            $user_id = $url[2];
+              
+            $request = $modelRequests->sendRequest($user_id, $_SESSION["user_id"]);
+
+            header("Location: /profile/".$user_id);
+            
+        }
+
+    
    
 
        
    }
    else {
+        //* get user
+        if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
+            http_response_code(400);
+            require("views/view.error_400.php");
+            exit;
+        }
 
        if(is_numeric($_SESSION["user_id"])){
     
@@ -76,17 +129,21 @@
         }
       
         $user = $modelUsers->getUser($user_id);
-       
+        
+        if(empty($user)) {
+            http_response_code(404);
+            require("views/view.error_404.php");
+            exit;
+        }
     
     
     
        
-        //* Criar Posts
+        //* Create Posts
 
         if(isset($_POST["send"])) {
            
-            //var_dump($_FILES);
-            //print_r($_POST);
+        
     
                 if(
                     //!empty($_FILES["file"]["name"]) ||
@@ -105,18 +162,36 @@
                     //print_r($result);
     
                     header("Location: /profile");
+                    http_response_code(200);
                 }
                 else {
-                    $message = "";
+                    $message = "Error! Fill the fields correctly";
+                    http_response_code(400);
                 }
+        }else {
+            
+            $message = "Error! Method not allowed";
+            http_response_code(405);
+        }
+
+
+        //* get posts
+        if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
+            http_response_code(400);
+            require("views/view.error_400.php");
+            exit;
         }
     
         $posts = $modelPosts->getPosts($user_id);
        
-        
+        if(empty($posts)) {
+            http_response_code(404);
+            require("views/view.error_404.php");
+            exit;
+        }
     
     
-        //* editar posts
+        //* edit posts
 
         if(isset($_POST["edit"])) {
            var_dump($_POST["postid"]);
@@ -144,20 +219,26 @@
                     //print_r($result);
     
                     header("Location: /profile");
+                    http_response_code(202);
                 }
                 else {
-                    $message = "";
+                    $message = "Error! Fill the fields correctly";
+                    http_response_code(400);
                 }
+        }else {
+            
+            $message = "Error! Method not allowed";
+            http_response_code(405);
         }
        
     
     
-        //* eliminar posts
-
-
         
-
         
+        
+        
+        
+        //* remove posts
 
 
         if(isset($_POST["delete"])) {
@@ -180,11 +261,17 @@
                    
     
                     header("Location: /profile");
+                    http_response_code(200);
                     
                 }
                 else {
-                    $message = "";
+                    $message = "Error! Not found";
+                    http_response_code(400);
                 }
+        }else {
+            
+            $message = "Error! Method not allowed";
+            http_response_code(405);
         }
        
     
@@ -195,7 +282,7 @@
     
     
     
-        //* comentários
+        //* comments
   
     
             if(isset($_POST["sendcomment"])) {
@@ -226,9 +313,18 @@
                     //var_dump($result);
     
                     header("Location: /profile");
+                    http_response_code(200);
                 }    
-                
+                else {
+                    $message = "Error! Fill the fields correctly";
+                    http_response_code(400);
+                }
+            }else {
+            
+                $message = "Error! Method not allowed";
+                http_response_code(405);
             }
+            
            
     
     
@@ -255,109 +351,106 @@
            
     
                 header("Location: /profile");
+                http_response_code(200);
             }    
-    
-    
-        }
-       
+            else {
+                $message = "Error! Not found";
+                http_response_code(400);
+            }
+        }else {
         
+            $message = "Error! Method not allowed";
+            http_response_code(405);
+        }
+    
+        
+         //* images
      
-    
-       
-        //* imagens
-    
         $profile_image = "";
-    
+     
         if($user["profile_image"] == "") {
-    
-            $profile_image = "images/placeholder_men.jpg";
+     
+             $profile_image = "images/placeholder_men.jpg";
+             http_response_code(200);
         }
         else {
-            $profile_image = $user["profile_image"];
+             $profile_image = $user["profile_image"];
+             http_response_code(200);
         }
-    
-    
+     
+     
         $cover_image = "";
-    
+     
         if($user["cover_image"] == "") {
-    
-            $cover_image = "images/placeholder_2.jpg";
+     
+             $cover_image = "images/placeholder_2.jpg";
+             http_response_code(200);
         }
         else {
-            $cover_image = $user["cover_image"];
+             $cover_image = $user["cover_image"];
+             http_response_code(200);
         }
-    
-    
-                                    
+     
+     
+                                     
         $imageFriends= "";
-    
-       
+     
+        
         if($user["gender"] == "M") {
-    
-            $imageFriends = "images/placeholder_men.jpg";
-    
+     
+             $imageFriends = "images/placeholder_men.jpg";
+             http_response_code(200);
+     
         } 
         else {
-    
-            $imageFriends = "images/placeholder_women.jpg";
-        }
-    
-    
-        
-    
-        $friends = $modelUsers->getFriends($user_id);
-    
-    
-        if(isset($_POST["sendlike"])) {
-    
-            require("models/model.likes.php");
-    
-            $model = new Posts();
-    
-            //$post = $model->($_POST["postid"]);
-    
-           
-    
-        }
-
      
-
-        
-
-
-        //* fetch
-
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-            $json = file_get_contents('php://input');
-          
-            $data = json_decode($json);
-            echo '$data';
+             $imageFriends = "images/placeholder_women.jpg";
+             http_response_code(200);
         }
-
-        //$users = $modelUsers->findUser($search);
-        //var_dump($users);
-        
-        /*$output = [];
-        if ($users > 0) {
-            while ($row = $users) {
-                $output[] =  $row;
-            }
-        } else {
-            $output['empty'] = "empty";
+         
+     
+        //* get friends
+ 
+        if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
+             http_response_code(400);
+             require("views/view.error_400.php");
+             exit;
         }
-        echo json_encode($output);*/
+     
+        $friends = $modelUsers->getFriends($user_id);
+ 
+        if(empty($friends)) {
+             http_response_code(404);
+             require("views/view.error_404.php");
+             exit;
+        }
+ 
+ 
+    }
+     
+ 
+    $title = "VirtualFriends";
+ 
+    require("views/view.profile.php");
+        
+       
+        
+     
+    
+?>
+    
+        
+
+ 
+        
+
+
         
         
-   }
+        
 
 
 
 
     
    
-
-    $title = "VirtualFriends";
-
-    require("views/view.profile.php");
-?>

@@ -8,19 +8,41 @@
     $modelComments = new Comments();
         
        
-    //$posts = $modelPosts->adminPosts();
+    
 
     $users = $modelUsers->getAllUsers();
-    //print_r($dates);
-    //print_r($users);
+    
+    if(empty($users)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
 
     $NumberOfUsers = $modelUsers->countUsers();
 
-    //print_r($users[0] ["COUNT(*)"]);
+    if(empty($NumberOfUsers)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
+
+    
 
     $NumberOfPosts = $modelPosts->countPosts();
 
+    if(empty($NumberOfPosts)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
+
     $NumberOfComments = $modelComments->countComments();
+
+    if(empty($NumberOfComments)) {
+        http_response_code(404);
+        require("views/view.error_404.php");
+        exit;
+    }
 
     $title= "Admin Page - Virtual Friends";
 

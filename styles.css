@@ -147,3 +147,28 @@ main {
     color: white;
     font-weight: bold;
 }
+h2{
+    text-align: center;
+ }
+
+ form {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     margin: 5px 10px;
+ }
+
+ .row {
+     margin: 5px 10px;
+ }
+
+ .row label {
+     text-align: left;
+ }
+
+ .row input {
+     width: 150px;
+     margin-left: 10px;
+     text-align: ri
+ }

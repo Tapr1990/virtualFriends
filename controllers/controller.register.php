@@ -38,13 +38,18 @@
                 $_SESSION["user_id"] = $user_id;
                 header("Location: /profile");
             } else {
-                $message = "User already exists";
+                $message = "Error! User already exists";
+                http_response_code(404);
             }
+        }else {
+            $message = "Error! Fill the fields correctly";
+            http_response_code(400);
         }
-
-    } else {
-    $message = "Fill the fields correctly";
+    }else {
+        $message = "Error! Method not Alowed";
+        http_response_code(405);
     }
+    
 
  
 
