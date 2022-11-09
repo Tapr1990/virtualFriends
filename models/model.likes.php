@@ -36,8 +36,8 @@
             ");
         
             $query->execute([
-                $post_id,
-                $user_id
+                htmlspecialchars(strip_tags(trim($post_id))),
+                htmlspecialchars(strip_tags(trim($user_id)))
                 
             ]);
                 
@@ -50,6 +50,20 @@
             return $like;
     
             
+        }
+
+        public function countLikes() {
+            $query = $this->db->prepare("
+                SELECT COUNT(like_id) AS NumberOfLikes
+                FROM likes
+                
+            ");
+
+            $query->execute();
+
+            $result = $query->fetchAll();
+
+            return $result[0]["NumberOfLikes"];
         }
         
     }

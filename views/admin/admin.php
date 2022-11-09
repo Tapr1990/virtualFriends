@@ -88,7 +88,7 @@
                 ["Users",<?php echo $NumberOfUsers; ?> , "#b87333"],
                 ["Posts",<?php echo $NumberOfPosts; ?>, "silver"],
                 ["Comments",<?php echo $NumberOfComments; ?>, "gold"],
-                ["Likes", 5 , "color: #e5e4e2"]
+                ["Likes",<?php echo $NumberOfLikes; ?>, "color: #e5e4e2"]
             ]);
 
             const view = new google.visualization.DataView(data);
@@ -124,10 +124,10 @@
         <a href="/admin">Dashboard</a>
         <a href="/adminusers">Users</a>
         <a href="/adminposts">Posts</a>
-        <a href="#">Edit Profile</a>
         <a href="/adminlogout">
             <span style="font-size:15px;float:left;margin:10px;color:black;">Logout</span>
         </a>
+      
       
     </div>
     <main id="pgmain">
@@ -148,7 +148,7 @@
             </div>
             <div id="total">
                 <p>Total Likes</p>
-                <p>5</p>
+                <p><?php echo $NumberOfLikes; ?></p>
             </div>
         </div>
         <div id="columnchart_values" style="text-align:center;width: 900px; height: 500px;"></div>

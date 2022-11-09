@@ -28,18 +28,7 @@
     }
 
 
-    $imageFriends= "";
-
-   
-    if($user["gender"] == "M") {
-
-        $imageFriends = "images/placeholder_men.jpg";
-
-    } 
-    else {
-
-        $imageFriends = "images/placeholder_women.jpg";
-    }
+  
 
 
     if(empty($_SESSION["user_id"]) || !is_numeric($_SESSION["user_id"])) {
@@ -58,16 +47,17 @@
     }
 
 
-    $profile_image = "";
     
+        $profile_image = "";
+        
         if($user["profile_image"] == "") {
-    
-            $profile_image = "images/placeholder_men.jpg";
-            http_response_code(200);
+
+            $profile_image = "/images/person-placeholder.jpg";
+            
         }
         else {
             $profile_image = $user["profile_image"];
-            http_response_code(200);
+            
         }
     
     
@@ -76,11 +66,11 @@
         if($user["cover_image"] == "") {
     
             $cover_image = "images/placeholder_2.jpg";
-            http_response_code(200);
+            
         }
         else {
             $cover_image = $user["cover_image"];
-            http_response_code(200);
+           
         }
 
   

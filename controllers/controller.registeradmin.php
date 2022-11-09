@@ -1,10 +1,7 @@
 <?php
 
-  
-
-
     
-    if(isset($POST["send"])) {
+    if(isset($_POST["send"])) {
 
                 
 
@@ -29,32 +26,29 @@
         
         ) {
 
-            require("models/model.users.php");
+            require("models/model.admin.php");
 
-            $modelUsers = new Users();
+            $model = new Admin();
 
-            $user_id = $modelUsers->createUsers($_POST);
+            $admin_id = $model->createAdmin($_POST);
 
 
         
-            if(!empty($user_id)) {
-                $_SESSION["user_id"] = $user_id;
-
-                header("Location: /profile");
-                
+            if(!empty($admin_id)) {
+                $_SESSION["admin_id"] = $admin_id;
+                header("Location: /admin");
             } else {
-                $message = "Error! User already exists";
-                http_response_code(404);
+                $message = "Administrator already exists";
             }
-        }else {
-            $message = "Error! Fill the fields correctly";
-            http_response_code(400);
         }
+
+    } else {
+    $message = "Fill the fields correctly";
     }
 
-   
+ 
 
     $title = "VirtualFriends";
 
-    require("views/view.register.php");
+    require("views/view.registeradmin.php");
 ?>

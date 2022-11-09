@@ -5,7 +5,7 @@
 
         public function createPost($id, $data) {
 
-            //$is_image = 0;
+            
 
             $query = $this->db->prepare("
                     INSERT INTO posts
@@ -14,9 +14,9 @@
             ");
         
             $query->execute([
-                $id,
-                $data["post"]
-                //$is_image["is_image"]
+                htmlspecialchars(strip_tags(trim($id))),
+                htmlspecialchars(strip_tags(trim($data["post"])))
+                
             ]);
                 
           
@@ -40,16 +40,22 @@
                     posts.date,
                     users.profile_image,
                     users.first_name,
-                    users.last_name
+                    users.last_name,
+                    commets.comment_id,
+                    commets.comment
                      
                 FROM 
                     posts
                 INNER JOIN
-                    users USING(user_id)
+                    users ON(posts.user_id = users.user_id)
+                INNER JOIN
+                    commets ON(posts.post_id = commets.post_id)
+                ORDER BY 
+                    post_id DESC 
+                
             ");
             
-
-                
+            
                 
             $query->execute();
             
@@ -66,7 +72,7 @@
             SELECT post_id, user_id, post 
             FROM posts
             WHERE user_id = ?
-            ORDER BY post_id DESC limit 10
+            ORDER BY post_id DESC 
             ");
             
             $query->execute([ $user_id ]);
@@ -77,22 +83,7 @@
             
         }
         
-        public function getIdPost($post_id) {
-            $query = $this->db->prepare("
-            SELECT post_id, post 
-            FROM posts
-            WHERE post_id = ?
-            
-            ");
-            
-            $query->execute([ $post_id ]);
-            
-            $result = $query->fetch();
-            
-            return $result;
-            
-        }
-        
+  
         
         
         
@@ -122,8 +113,8 @@
             ");
             
             $query->execute([
-                $post,
-                $post_id
+                htmlspecialchars(strip_tags(trim($post))),
+                htmlspecialchars(strip_tags(trim($post_id)))
                 
                 
                 
@@ -148,7 +139,7 @@
             return $result[0]["NumberOfPosts"];
         }
 
-        public function Posts() {
+        public function adminPosts() {
             $query = $this->db->prepare("
                 SELECT
                     post_id,

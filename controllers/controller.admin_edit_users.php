@@ -1,15 +1,22 @@
 <?php
 
-  
 
 
-    
-    if(isset($POST["send"])) {
 
-                
+   
+   
+
+    $URI = urldecode($_SERVER['REQUEST_URI']);
+    $url = explode ("/", $URI);
+
+    $userid = $url[2];
+
+    if(isset($_POST["edit"])) {
+
+        
 
         if(
-        
+            
             filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) &&
             $_POST["password"] === $_POST["password2"] &&
             mb_strlen($_POST["first_name"]) >= 3 &&
@@ -24,37 +31,39 @@
             !empty($_POST["first_name"]) &&
             !empty($_POST["last_name"]) &&
             !empty($_POST["password"]) 
-    
+           
+
         
         
         ) {
+            
 
             require("models/model.users.php");
-
+ 
             $modelUsers = new Users();
 
-            $user_id = $modelUsers->createUsers($_POST);
-
-
         
-            if(!empty($user_id)) {
-                $_SESSION["user_id"] = $user_id;
+           
 
-                header("Location: /profile");
+            $result = $modelUsers->editUser($_POST,$userid );
                 
-            } else {
-                $message = "Error! User already exists";
-                http_response_code(404);
-            }
-        }else {
+            
+            
+            
+
+          
+
+        }
+        else {
+            
             $message = "Error! Fill the fields correctly";
             http_response_code(400);
+            
         }
+        
     }
 
-   
 
-    $title = "VirtualFriends";
 
-    require("views/view.register.php");
+require("views/admin/admin_edit_users.php");
 ?>

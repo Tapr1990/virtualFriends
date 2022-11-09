@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+#pgside, #pgmain { padding: 10px;}
+
+#pgside {
+    width: 150px;
+    background: #f2f2f2;
+}
+
+#pgmain {
+    flex-grow: 1;
+}
+
+#pgside a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+}

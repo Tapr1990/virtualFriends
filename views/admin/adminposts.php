@@ -106,9 +106,9 @@
                         <td>' .date("jS M, Y", strtotime($post["date"])). '</td>
                         
                         <td>
-                            <button type="button"><a href="/adminedituser/' .$post["post_id"]. '">edit</a></button>
-                            <form method="post" action="/adminusers">
-                                <input type="hidden" name="userid" value=' .$post["post_id"]. '>
+                            <button type="button"><a href="/admin_edit_posts/' .$post["post_id"]. '">edit</a></button>
+                            <form method="post" action="/adminposts">
+                                <input type="hidden" name="postid" value=' .$post["post_id"]. '>
                                 <button type="submit" name="delete">delete</button>
                             </form>
                         </td>

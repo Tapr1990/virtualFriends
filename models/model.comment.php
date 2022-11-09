@@ -12,9 +12,9 @@
             ");
 
             $query->execute([
-                $post_id,
-                $user_id,
-                $comment
+                htmlspecialchars(strip_tags(trim($post_id))),
+                htmlspecialchars(strip_tags(trim($user_id))),
+                htmlspecialchars(strip_tags(trim($comment)))
                 
             ]);
 
@@ -27,11 +27,17 @@
         public function getComments($post_id, $user_id) {
             $query = $this->db->prepare("
                 SELECT 
-                    post_id, user_id, comment
+                    commets.post_id,
+                    commets.user_id, 
+                    commets.comment,
+                    users.profile_image,
+                    CONCAT(users.first_name, users.last_name) AS username
                 FROM 
                     commets
+                INNER JOIN
+                    users USING(user_id)
                 WHERE 
-                    post_id = ? AND user_id = ?
+                    commets.post_id = ? AND commets.user_id = ?
 
             ");
             

@@ -15,12 +15,7 @@
     </header>
         <div class="bar2">
         <h2 style="font-size:20px" >Log in to VirtualFriends</h2>
-<?php
 
-    if(isset($message)) {
-        echo '<p role="alert">' .$message. '</p>';
-    }
-?>
     <main>
         <section>
             <form method="POST" action="/home">

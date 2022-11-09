@@ -7,7 +7,9 @@
     }
 ?>
         
+        
         <section>
+            
             <div style="background-color:white;text-align:center;color:#405d9b">
                 <img src="/<?php echo $cover_image; ?>" style="width:100%;">
                 <span style="font-size: 12px">
@@ -17,12 +19,11 @@
                     <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
         
                 </span>
-                <form method="post" action="/profile">
-                    <input style="margin-right:20px;background-color: #405d9b"  type="submit" name="add" value="Add Friend">
-                </form>
+                
                     
               
                 <br>
+
         
                 <div style="font-size:20px"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></div>
                 <br>
@@ -42,15 +43,20 @@
                             Friends
 <?php
         
-        
-    foreach($friends as $friend) {
+        foreach($friends as $friend) {
+  
+            $friend_image = $friend["profile_image"];
 ?>
+ 
+    
+     
+    
            
                             <div class="friends">
                                
                                 <a href="/profile/<?php echo $friend["user_id"]; ?>">
                                     <div>
-                                        <img class="friends_img" src="<?php echo $imageFriends; ?>" style="width:75px;height:75px">
+                                        <img class="friends_img" src="<?php echo (!empty($friend["profile_image"]) ? "/" . $friend["profile_image"] : "/images/person-placeholder.jpg"); ?>" style="width:75px;height:75px">
                                     </div>
                                     <br>
                                     <div>
@@ -59,6 +65,7 @@
                                 </a>
                             </div>
 <?php
+       
     }
 ?>
 
@@ -66,16 +73,16 @@
                     </div>
 
 
-                        <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
+                    <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
                         <div style="border:solid thin #aaa;padding: 10px;background-color:white">
-                            
-                            <form method="POST" enctype="multipart/form-data" action="/profile">
+                               
+                            <form method="post" action="/profile">
                                 <textarea name="post" placeholder="Whats on your mind?"></textarea>
-                                <input type="file" name="file">
-                                <input class="post_button" type="submit" name="send" value="Post">
-                                <br>
+                                <button class="post_button" name="send" type="submit">Post</button>
                             </form>
-                            
+                                
+                                    
+                                
                         </div>
 
                                     
@@ -96,27 +103,32 @@
 
         $likes = $modelLikes->getLikes($post_id, $_SESSION["user_id"]);
                 
-        //var_dump($post_id);
+        
         
 ?>     
             
         
-                        <div data-post_id="<?php echo $post_id; ?>" class="post_bar">
+                        <div class="post_bar">
                             <div class="post">
                                 <div>
-                              
-                                    <img src="<?php echo $user["profile_image"]; ?>" style="width:75px;height:75px;margin-right: 4px">
+                                  
+                                    <img src="<?php echo (!empty($user["profile_image"]) ? "/" . $user["profile_image"] : "/images/person-placeholder.jpg"); ?>" style="width:75px;height:75px;margin-right: 4px">
+                                    
                                 </div>
                                 <div class="post_container">
                                     <div style="font-weight:bold;color:#405d9b;">
                                         <?php echo $post_user["first_name"] . " " . $post_user["last_name"]; ?>
                                     </div>
-                                    <p><?php echo $post["post"]; ?></p>
                                     <div>
+                                        <p><?php echo $post["post"]; ?></p>
+                                    </div>
+
+                                    <div>
+                              
                                         <?php
                                             foreach($likes as $like) {
                                         ?>
-                                        <form method="post" action="/profile">
+                                        <form method="post" action="/profile/<?php echo $post_user["user_id"];?>">
                                             <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
                                             <button type="submit" name="like" class="like"><i class="fas fa-thumbs-up"></i>&nbsp;</button>
                                             <p><?php echo $like["likes"] ;?> people like this</p>
@@ -128,95 +140,78 @@
                                     </div>
   
                                     <div stye="color: #999;float:left;">
-                                       
-                                       
-                                        <form method="post" action="/profile">    
+                                        <form method="post" action="/profile/<?php echo $post_user["user_id"];?>">    
                                             <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
-                                            <input class="delete_button" type="button" value="Delete" name="delete">
-        
+                                            <button class="delete_button" type="submit" name="delete">Delete</button>
                                         </form>
+                                    </div>
+                                    <div>
+                                        
+                                       
+                                        <button><a href="edit/<?php echo $post_id; ?>">Edit</a></button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <form method="post" action="/profile/<?php echo $post_user["user_id"];?>">
+                              
+                                <div>
+                                    <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
+                                    <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
+                                    <input class="send_button"type="submit" name="sendcomment" value="send">
+                                </div>
+                
+                            </form>
+<?php 
+
+        
+        foreach($post["comments"] as $comment) { 
+                    echo '
+                        <div style="background-color: #fff;">
+                            <p class="comment">' .$comment["comment"]. '</p>
+                        </div>
+                      
+                        
+                
+                
+                    ';
+        }
+    
+       
+?>
+
+                        </div>                              
+                                       
+<?php               
+    }
+?>
+  
+                        
+                    </div>
+                </section>
+<?php
+    require("layout/footer.php")
+?>
+                                       
+        
                                            
                                         
                                         
                                             
                                         
-                                    </div>
-                                    <div>
-                                    <div>
-                                        <button class="edit-button" onclick="edit(<?php echo $post_id; ?>)">Edit</button>
-                                        <div class="modal">
-                                            <form method="post" action="/profile">
-                                                <textarea name="update" placeholder="Edit post"></textarea>
-                                                <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                                <input class="post_button" type="submit" value="Edit" name="edit">
-                                            </form>
-                                        </div>
-                                    </div>
+                                    
                                                
 
         
-                                    </div>
-                                </div>
-                            </div>
+                                
                
-                        </div>
-                        <div>
-                                <form method="post" action="/profile">
-                                  
-                                    <div>
-                                        <textarea style="border:1px solid #405d9b;" name="comment" required placeholder="comment this post"></textarea>
-                                        <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                        <input class="send_button"type="submit" name="sendcomment" value="send">
-                                    </div>
-                    
-                                </form>
-<?php 
-        if($_SESSION["user_id"] == $user["user_id"]) {
-        
-                    $results = $modelComments->getComments($post_id, $user_id);
-                    foreach($results as $result) { 
-                        echo '
-                        
-                            <p>' .$result["comment"]. '</p>
-                        
-                        
-                        ';
-                    }
-                } elseif($url[2] != $_SESSION["user_id"]) {
-                
-                    $comments = $modelComments->getComments($post_id, $user_id);
-                    foreach($comments as $comment) { 
-                        echo '
-                        
-                            <p>' .$comment["comment"]. '</p>
-                        
-                        
-                        ';
-                    }
-        
-                } else {
-                    echo 'erro';
-                }
-        
-?>
-                        </div>                              
         
                       
-<?php
-    }
-?>
                                     
                          
-                       
-                    </div>
-        
-                </div>
-            </div>
-        </section>
     
-<?php
-    require("layout/footer.php")
-?>
                     
                     
                     

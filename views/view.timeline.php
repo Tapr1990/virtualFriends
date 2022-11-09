@@ -12,17 +12,25 @@
             <div style="display: flex">
                 <div style="min-height:400px;flex:1">
                     <div id="friends_bar">
-                       <a href="/profile"><img src="/<?php echo $user["profile_image"]; ?>" id="photo"><br></a>
-                       <a style="text-decoration:none;" href="/profile"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></a>
+                        <div>
+                            <a href="/profile"><img src="/<?php echo $profile_image; ?>" id="photo"></a>
+                        </div>
+                        <div>
+                            <a style="text-decoration:none;" href="/profile"><?php echo $user["first_name"] . " " . $user["last_name"]; ?></a>
+                        </div>
+
                     </div>
                 
                 </div>
                 <div style="min-height:400px;flex:2.5;padding:20px;padding-right:0px">
                     <div style="border:solid thin #aaa;padding: 10px;background-color:white">
-                        <textarea placeholder="Whats on your mind?"></textarea>
-                        <input id="post_button" type="submit" value="Post">
-                        <br>
+                        <form method="post" action="/timeline">
+                            <textarea name="post" placeholder="Whats on your mind?"></textarea>
+                            <input id="post_button" type="submit" name="send1" value="Post">
+                        </form>
                     </div>
+
+                        
     
                    
                     
@@ -47,11 +55,16 @@
                                 <?php echo $post["first_name"] . " " . $post["last_name"]; ?>
                                 </div>
                                 <p><?php echo $post["post"]; ?></p>
-                                <div>
+                               
+                               
+                             
+                            </div>
+                        </div>
+                        <div>
                                         <?php
                                             foreach($likes as $like) {
                                         ?>
-                                        <form method="post" action="/profile">
+                                        <form method="post" action="/timeline">
                                             <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
                                             <button type="submit" name="like" class="like"><i class="fas fa-thumbs-up"></i>&nbsp;</button>
                                             <p><?php echo $like["likes"] ;?> people like this</p>
@@ -59,39 +72,18 @@
                                         <?php
                                             }
                                         ?>
-                                       
-                                </div>
-
-                                <div stye="color: #999;float:left;">
-                                   
-                                    <form method="post" action="/profile">
-                                        
-                                        <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                        <input id="post_button" type="submit" value="Delete" name="delete">
-                                        <br>
-                                    </form>    
-                                    
-                                        
-                                    
-                                </div>
-                                <div>
-                                <div style="border:solid thin #aaa;padding: 10px;background-color:white">
-                                    
-                                    <form method="post" action="/profile">
-                                        <input type="text" name="update" placeholder="edit post">
-                                        <input type="hidden" name="postid" value="<?php echo $post_id; ?>">
-                                        <input id="post_button" type="submit" value="Edit" name="edit">
-                                        <br>
-                                    </form>
-    
-                                </div>
-                                </div>
-                            </div>
                         </div>
+                        <div stye="color: #999;float:left;">
+                            <form method="post" action="/timeline">    
+                                <input type="hidden" name="postid" value="<?php echo $post_id ;?>">
+                                <button class="delete_button" type="submit" name="delete">Delete</button>
+                            </form>
+                        </div>               
+                       
            
                     </div>
                     <div>
-                            <form method="post" action="/profile">
+                            <form method="post" action="/timeline">
                               
                               <div>
                 
@@ -100,14 +92,37 @@
                                   <input type="submit" name="sendcomment" value="send">
                               </div>
                             </form>
-                          
-                           
-                             
-                  
-                    </div>                              
+                    </div>
+                    <div>
+                        <p style="background-color: #fff;" ><?php echo $post["comment"]; ?></p>
+                    </div>
+                    
+
+                    
+                    
+                    
 <?php
     }
 ?>
+                   
+    
+                        
+                        
+                        
+                        
+            
+
+
+
+
+
+
+
+
+                  
+                             
+                  
+       
                       
                                 
                             

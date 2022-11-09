@@ -3,7 +3,7 @@
 
     Class About extends Database {
 
-        public function about($user_id, $data) {
+        public function about($user_id,$country,$city,$birth_date,$school,$university,$job) {
             $query = $this->db->prepare("
                 INSERT INTO about
                 (user_id, country, city, birth_date, school, university, job)
@@ -13,19 +13,19 @@
            
             
             $query->execute([
-                $user_id,
-                $data["country"],
-                $data["city"],
-                $data["birth_date"],
-                $data["school"],
-                $data["university"],
-                $data["job"]
+                htmlspecialchars(strip_tags(trim($user_id))),
+                htmlspecialchars(strip_tags(trim($country))),
+                htmlspecialchars(strip_tags(trim($city))),
+                htmlspecialchars(strip_tags(trim($birth_date))),
+                htmlspecialchars(strip_tags(trim($school))),
+                htmlspecialchars(strip_tags(trim($university))),
+                htmlspecialchars(strip_tags(trim($job)))
             ]);
             
                 
-            $result = $this->db->lastInsertId();
+            return $this->db->lastInsertId();
             
-            return $result;
+            
             
        
 
@@ -51,18 +51,10 @@
 
             $query->execute([ $user_id ]);
 
-            return $query->fetch();
+            return $query->fetchAll();
         }
 
     }
 
-    /*
-             htmlspecialchars(strip_tags(trim($data["country"]))),
-                htmlspecialchars(strip_tags(trim($data["city"]))),
-                htmlspecialchars(strip_tags(trim($data["birth_date"]))),
-                htmlspecialchars(strip_tags(trim($data["school"]))),
-                htmlspecialchars(strip_tags(trim($data["university"]))),
-                htmlspecialchars(strip_tags(trim($data["job"])))
-    */
-
+   
 ?>

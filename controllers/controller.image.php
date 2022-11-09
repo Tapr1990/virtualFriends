@@ -42,7 +42,7 @@
      
      
               header("Location: /profile");
-              http_response_code(200);
+             
             }
 
           }
@@ -57,11 +57,7 @@
       }
 
     }
-    else {
-
-      $message = "Error! Add an image!";
-      http_response_code(405);
-    }
+   
 
 
 
@@ -95,7 +91,7 @@
               $backgroundImages = $modelImages->insertBackgroundImage($file, $user_id);
      
               header("Location: /profile");
-              http_response_code(200);
+              
             }
 
           }
@@ -110,11 +106,28 @@
       }
 
     }
-    else {
+   
+  
 
-      $message = "Error! Add an image!";
-      http_response_code(405);
+    $userid = $_SESSION["user_id"];
+      
+
+    $user = $modelImages->getUser($userid);
+
+    
+    $profile_image = "";
+    
+    if($user["profile_image"] == "") {
+
+        $profile_image = "images/person-placeholder.jpg";
+        
     }
+    else {
+        $profile_image = $user["profile_image"];
+       
+    }
+           
+            
 
 
 

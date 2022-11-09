@@ -12,7 +12,7 @@
                 <span style="font-size: 12px">
                     <a style="text-decoration: none;color:#00ff;float:left;" href="/image">Edit Background-Image</a>
         
-                    <img src="/<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
+                    <img src="<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
                     <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
         
                 </span>
@@ -52,9 +52,7 @@
                         <input type="submit" value="x" name="remove">
                         <br>
                     </form>
-                    <div class="modal-dialog modal-fullscreen-sm-down"><
-                        <img id="photo" src="<?php echo $photo["photo"]; ?>" alt=""  width="200" height="200">
-                    </div>  
+                    
 <?php
     }
 ?>

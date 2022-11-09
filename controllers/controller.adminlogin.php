@@ -17,8 +17,8 @@
                 $_SESSION["user_id"] = $user["user_id"];
 
                 header("Location: /admin");
-                http_response_code(200);
-                exit;
+                
+                
             }else {
                 $message = "Error! User Already Exists";
                 http_response_code(404);
@@ -28,9 +28,6 @@
             http_response_code(400);
         }
 
-    }else {
-        $message = "Error! Method Not Alowed";
-        http_response_code(405);
     }
 
 

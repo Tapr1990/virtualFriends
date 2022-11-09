@@ -49,6 +49,7 @@ textarea {
     font-size: 14px;
     height: 50px;
 }
+
 .post_button {
     float: right;
     background-color:#405d9b;
@@ -67,19 +68,19 @@ textarea {
     font-size: 14px;
     border-radius: 2px;
 }
-    
-
-    
+     
 .post_bar {
     margin-top: 20px;
     background-color: white;
     padding: 10px;
-}
+}   
 .post {
     padding: 4px;
     font-size: 13px;
     display: flex;
 }
+
+
 main {
     width:800px;
     margin:auto;
@@ -149,15 +150,15 @@ main {
 }
 h2{
     text-align: center;
- }
+}
 
- form {
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     margin: 5px 10px;
- }
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 10px;
+}
 
  .row {
      margin: 5px 10px;
@@ -172,3 +173,11 @@ h2{
      margin-left: 10px;
      text-align: ri
  }
+
+.write_post {
+    display: flex;
+    flex-direction: row;
+}
+.comment_container .comment{
+    background-color: #fff;
+}

@@ -11,8 +11,8 @@
             ");
 
             $query->execute([
-                $user_id,
-                $data
+                htmlspecialchars(strip_tags(trim($user_id))),
+                htmlspecialchars(strip_tags(trim($data)))
 
             ]);
 

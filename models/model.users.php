@@ -23,7 +23,7 @@
                 
             ]);
             
-            //$url_address = strtolower($data["first_name"]) . "." . strtolower($data["last_name"]);
+            
        
 
             return $this->db->lastInsertId();
@@ -54,27 +54,7 @@
             return $query->fetch();
         }
 
-       /* public function checkUser($user_id) {
-            $query = $this->db->prepare("
-                SELECT 
-                    user_id, 
-                    first_name,
-                    last_name,       
-                FROM 
-                    users
-                WHERE
-                    user_id = ?
-            ");
-
-            $query->execute([ $user_id ]);
-
-            return $query->fetch();
-
-        }*/
-
-       
-
-        
+      
         public function loginUser($data) {
             $query = $this->db->prepare("
             SELECT user_id, password 
@@ -131,8 +111,8 @@
             ");
 
             $query->execute([
-                $profile_image,
-                $user_id
+                htmlspecialchars(strip_tags(trim($profile_image))),
+                htmlspecialchars(strip_tags(trim($user_id)))
 
             ]);
 
@@ -148,63 +128,17 @@
             ");
 
             $query->execute([
-                $data,
-                $user_id
+                htmlspecialchars(strip_tags(trim($data))),
+                htmlspecialchars(strip_tags(trim($user_id)))
 
             ]);
 
             return $query;
         }
 
-        public function updateUsers($data) {
-            $query = $this->db->prepare("
-                UPDATE 
-                    users
-                SET
-                    first_name = ?,
-                    last_name = ?,
-                    email = ?,
-                    password = ?
-                WHERE 
-                    user_id = ? 
-            ");
+        
 
-            $query->execute([
-                htmlspecialchars(strip_tags(trim($data["first_name"]))),
-                htmlspecialchars(strip_tags(trim($data["last_name"]))),
-                htmlspecialchars(strip_tags(trim($data["email"]))),
-                password_hash($data["password"],PASSWORD_DEFAULT)
-            
-
-            ]);
-
-            return $query;
-        }
-
-        public function getFriendProfile($user_id) {
-            $query = $this->db->prepare("
-                SELECT 
-                    users.user_id,
-                    users.first_name,
-                    users.last_name,
-                    users.gender,
-                    users.profile_image,
-                    users.cover_image,
-                    posts.post_id,
-                    posts.post,
-                    posts.date
-                FROM 
-                    users
-                INNER JOIN
-                    posts USING(user_id)
-                WHERE 
-                    user_id = ? limit 1
-            ");
-
-            $query->execute([ $user_id ]);
-
-            return $query->fetch();
-        }
+        
 
         public function deleteUser($user_id) {
             $query = $this->db->prepare("
@@ -270,13 +204,14 @@
         
         public function findUser($name) {
             $query = $this->db->prepare("
-                SELECT user_id, first_name, profile_image
+                SELECT user_id, profile_image, first_name
                 FROM users
                 WHERE first_name = ?
             ");
 
             $query->execute([ 
                 $name
+            
             ]);
 
             return $query->fetchAll();
@@ -284,7 +219,7 @@
             
         }
 
-        public function create($first_name,$last_name,$gender,$email,$password) {
+        /*public function create($first_name,$last_name,$gender,$email,$password) {
             $query = $this->db->prepare("
                 INSERT INTO users
                 (first_name, last_name, gender, email, password)
@@ -309,7 +244,7 @@
             return $this->db->lastInsertId();
 
             
-        }
+        }*/
       
     }
 ?>

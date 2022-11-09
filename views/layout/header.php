@@ -8,13 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="/styles.css">
-    <script>
-        function sendAction(constant, id){
-            $.post("/profile/" + "action=sendRequest" + id, function(res){
-                alert(res);
-            })
-        }
-    </script>
+    <style>
+        .country-list { padding:0; margin:0;}
+        .country-list li { list-style-type: none; display:block;}
+    </style>
+
  
 </head>
 <body style="font-family:tahoma;background-color:#d0d8e4;" >
@@ -49,12 +47,13 @@
                     <a style="color:white;text-decoration:none;" href="/timeline">VirtualFriends &nbsp &nbsp</a> 
                     <input type="text" id="search_box" name="find" placeholder="Search" aria-label="search">
                     <button type="submit" name="submit">&#128269;</button>
-                    <img src="/<?php echo $user["profile_image"]; ?>" style="width:50px;height:50px;float:right;">
+                    <a href="/profile"><img src="<?php echo $profile_image; ?>" style="width:50px;height:50px;float:right;"></a>
                     <a href="/logout">
                         <span style="font-size:15px;float:right;margin:10px;color:white;">Logout</span>
                     </a>
                 </div>
             </form>
         </div>
+        
     </header>
     <main>

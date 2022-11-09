@@ -40,34 +40,36 @@
     
                 <div>
                     <h2>About</h2>
+                </div>
 <?php
-                //foreach($results as $result) {
-                    echo'
-                        <div>
-                            <dl>
-                                <dt>Country</dt>
-                                <dd></dd>
-                                <dt>city</dt>
-                                <dd></dd>
-                                <dt>Birth Date</dt>
-                                <dd></dd>
-                                <dt>School</dt>
-                                <dd></dd>
-                                <dt>University</dt>
-                                <dd></dd>
-                                <dt>Job</dt>
-                                <dd></dd>
-                                
-                            </dl>                    
-                        </div>
-                    ';
-                //}          
+        foreach($results as $result) {
+            echo '
+                <dl>
+                    <dt>Country</dt>
+                    <dd>' .$result["country"]. '</dd>
+                    <dt>City</dt>
+                    <dd>' .$result["city"]. '</dd>
+                    <dt>Birth Date</dt>
+                    <dd>' .$result["birth_date"]. '</dd>
+                    <dt>School</dt>
+                    <dd>' .$result["school"]. '</dd>
+                    <dt>University</dt>
+                    <dd>' .$result["university"]. '</dd>
+                    <dt>Job</dt>
+                    <dd>' .$result["job"]. '</dd>
+                </dl>
+            ';
+
+        }
+
 ?>
+                
+
                    
     
-                </div>
         </div>
     </section>
+    
 <?php
     require("layout/footer.php");
 ?>

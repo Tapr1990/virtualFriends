@@ -23,7 +23,8 @@
 ?>
     <main>
         <section>
-            <form method="POST" action="/register">
+            
+            <form method="post" action="/register">
                 <div>
                     <input type="text" name="first_name" id="text" placeholder="First Name">
 
@@ -51,13 +52,16 @@
                     <input type="password" name="password2" id="text" placeholder="Confirme Password">
                 </div>
                 <div>
-                    <input type="submit" name="send" id="button" value="Sign up">
+                    <button class="post_button" name="send" type="submit">Register</button>
                 </div>
+
+            </form>
 
                 
                 
-            </form>
+           
         </section>
+        
 <?php
     require("layout/footer.php");
 ?>

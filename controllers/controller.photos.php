@@ -39,7 +39,7 @@
             
             
                         header("Location: /photos");
-                        http_response_code(200);
+                       
                     }
 
                 }
@@ -57,11 +57,7 @@
        
 
     }
-    else {
-
-        $message = "Error! Add an photo!";
-        http_response_code(405);
-    }
+  
 
 
     //* get photos
@@ -74,11 +70,7 @@
 
     $photos = $model->getPhotos($_SESSION["user_id"]);
 
-    if(empty($photos)) {
-        http_response_code(404);
-        require("views/view.error_404.php");
-        exit;
-    }
+    
 
 
 
@@ -102,16 +94,12 @@
            
 
             header("Location: /photos");
-            http_response_code(200);
+           
 
         } else {
             $message = "Error! Bad Request";
             http_response_code(400);
         }
-    }else {
-    
-        $message = "Error! Method not allowed";
-        http_response_code(405);
     }
 
     
@@ -148,12 +136,12 @@
     
     if($user["profile_image"] == "") {
 
-        $profile_image = "images/placeholder_men.jpg";
-        http_response_code(200);
+        $profile_image = "/images/person-placeholder.jpg";
+       
     }
     else {
         $profile_image = $user["profile_image"];
-        http_response_code(200);
+      
     }
 
 
@@ -162,11 +150,11 @@
     if($user["cover_image"] == "") {
 
         $cover_image = "images/placeholder_2.jpg";
-        http_response_code(200);
+   
     }
     else {
         $cover_image = $user["cover_image"];
-        http_response_code(200);
+       
     }
 
 

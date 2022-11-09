@@ -12,7 +12,7 @@
                 <span style="font-size: 12px">
                     <a style="text-decoration: none;color:#00ff;float:left;" href="/image">Edit Background-Image</a>
         
-                    <img src="/<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
+                    <img src="<?php echo $profile_image; ?>" style=" width: 100px;margin-top: -100px; border-radius: 50%;border: solid 2px white;"><br/>
                     <a style="text-decoration: none;color:#00ff;" href="/image">Edit Profile Image</a>
         
                 </span>
@@ -44,7 +44,7 @@
        
                         <div class="friends">
                             <a href="/profile/<?php echo $friend["user_id"]; ?>">
-                                <img class="friends_img" src="<?php echo $imageFriends; ?>" style="width:75px;height:75px">
+                                <img class="friends_img" src="<?php echo (!empty($friend["profile_image"]) ? "/" . $friend["profile_image"] : "/images/person-placeholder.jpg"); ?>" style="width:75px;height:75px">
                                 <br>
                                 <?php echo $friend["first_name"] ." ". $friend["last_name"]; ?>
                             </a>
